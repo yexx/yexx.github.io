@@ -1,0 +1,43 @@
+{
+  "name": "gov-boa-noticia-toda-hora",
+  "version": "0.0.1",
+  "description": "Hotsite - Boa Noticia Toda Hora",
+  "private": true,
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "author": "Yeshua Emanuel Braz",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-minifier": "^1.1.0",
+    "gulp-minify": "2.1.0",
+    "gulp-pug": "^3.2.0",
+    "gulp-stylus": "^2.6.0",
+    "gulp-watch": "^5.0.0",
+    "gulp-webserver": "^0.9.1",
+    "normalize.css": "^7.0.0",
+    "run-sequence": "^2.2.1",
+    "jstransformer-stylus": "^1.4.0"
+  },
+  "engines": {
+    "node": ">=8.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://git@bitbucket.org/e-tools/tha-lp-7th-2017.git"
+  },
+  "contributors": [
+    {
+      "name": "Yeshua Emanuel Braz",
+      "email": "yeshua.braz@gmail.com",
+      "url": "http://yexx.github.io"
+    }
+  ],
+  "keywords": [
+    "Vue.js",
+    "Games List"
+  ]
+}
