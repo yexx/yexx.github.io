@@ -617,8 +617,13 @@ section#topo .videos video {
 }
 section#topo .center {
   position: relative;
+  max-width: 100%;
+  padding: 0 5%;
 }
 section#topo svg {
+  display: block;
+  max-width: 60vw;
+  margin: 0 auto;
   filter: drop-shadow(0px 0px 5px #fff);
 }
 section#topo svg path {
@@ -665,10 +670,12 @@ section#topo h1::after {
 section#topo ul {
   display: flex;
   justify-content: center;
-  flex-flow: row center;
+  flex-flow: row wrap;
 }
 section#topo ul li {
+  width: 100%;
   margin: 0 10px;
   text-transform: uppercase;
+  text-align: center;
 }
 /* MEDIA QUERIES */
