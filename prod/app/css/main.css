@@ -583,7 +583,12 @@ section#topo {
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background: #8655fc;
+  background-color: #f879fe;
+  background-image: -webkit-linear-gradient(top, #f879fe 0%, #25c9fe 100%);
+  background-image: -moz-linear-gradient(top, #f879fe 0%, #25c9fe 100%);
+  background-image: -ms-linear-gradient(top, #f879fe 0%, #25c9fe 100%);
+  background-image: -o-linear-gradient(top, #f879fe 0%, #25c9fe 100%);
+  background-image: linear-gradient(top, #f879fe 0%, #25c9fe 100%);
 }
 section#topo::before {
   content: '';
@@ -623,7 +628,9 @@ section#topo .center {
 section#topo svg {
   display: block;
   width: 50vw;
+  height: 50vh;
   max-width: 400px;
+  max-height: 400px;
   margin: 0 auto;
   filter: drop-shadow(0px 0px 5px #fff);
 }
@@ -654,19 +661,34 @@ section#topo svg path:nth-child(6) {
   animation-delay: 0.6s;
 }
 section#topo h1 {
+  position: relative;
   margin-top: 15px;
   text-transform: uppercase;
-  text-shadow: 3px 3px 0 #986ffc;
   font-style: italic;
   text-align: center;
 }
+section#topo h1::before,
 section#topo h1::after {
-  content: '';
+  content: attr(data-text);
   display: block;
-  width: 50%;
-  height: 1px;
-  margin: 10px auto;
-  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 0.5;
+}
+section#topo h1::before {
+  color: #f63787;
+  transform: translate(-3px, 0);
+}
+section#topo h1::after {
+  color: #6cfffe;
+  transform: translate(3px, 0);
+}
+section#topo h1 span {
+  position: relative;
+  z-index: 1;
 }
 section#topo ul {
   display: flex;
