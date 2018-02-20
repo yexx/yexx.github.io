@@ -2,13 +2,6 @@
 
 /* Funçoes Gerais */
 $(window).on('load',function(){
-
-	var $videos = [];
-	$('.videos video').each(function(i,c){
-		$videos.push($(this).attr('id'));
-		console.log($videos);
-	});
-
 	var count = $('.videos video').length
 	var ref = 1;
 	setInterval(function(){
