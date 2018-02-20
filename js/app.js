@@ -1,1 +1,1 @@
-$(window).on("load",function(){var e=$(".videos video").length,o=1;setInterval(function(){$(".videos video").hide(),$(".videos video").eq(o-1).show(),o>=e?o=0:o++},5e3)});
+$(window).on("load",function(){});

@@ -623,7 +623,7 @@ section#topo .videos video {
 section#topo .center {
   position: relative;
   max-width: 100%;
-  padding: 0 5%;
+  padding: 0 3%;
 }
 section#topo svg {
   display: block;
@@ -700,5 +700,6 @@ section#topo ul li {
   margin: 0 10px;
   text-transform: uppercase;
   text-align: center;
+  font-style: italic;
 }
 /* MEDIA QUERIES */
