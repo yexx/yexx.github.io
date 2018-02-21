@@ -1,0 +1,25 @@
+/* Animation Keyframes */
+
+@keyframes fadeIn {
+	0% { opacity: 0; transform: translate(-10px,0); }
+	100% { opacity: 1; transform: translate(0,0); }
+}
+
+body {
+	font-family: 'Roboto', Arial, sans-serif;
+}
+
+
+#heroes { padding: 0px 20px; list-style: none; }
+
+#heroes li { 
+	position: relative; 
+	padding: 0.83em 0;  background: linear-gradient();
+	border-bottom: 1px solid #666; 
+	overflow: hidden; 
+	animation: fadeIn 0.3s ease; 
+}
+#heroes li .photo { position: absolute; width: 200px; height: 100%; top: 0; right: 0; }
+#heroes li .photo img { position: absolute; min-width: 100%; min-height: 100%; top: 50%; left: 50%; transform: translate(-50%,-50%) }
+
+
