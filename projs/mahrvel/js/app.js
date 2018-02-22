@@ -3,6 +3,11 @@ var request = new XMLHttpRequest();
 var offset = 0;
 var url;
 
+var data, heroData, heroTotal, heroCount;
+var loader = document.getElementById('loader'); 
+var heroesTable = document.getElementById('heroestable');
+var heroesLines = heroesTable.getElementsByTagName("tr");
+
 function heroRequest(heroOffset){
     url = "https://gateway.marvel.com/v1/public/characters?ts=1&limit=100&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
 
@@ -14,16 +19,16 @@ function heroRequest(heroOffset){
       if (this.status >= 200 && this.status < 400) {
 
         // Successo :)
-        var data = JSON.parse(this.response);
+        data = JSON.parse(this.response);
 
         //Resultados
-        var heroData = data.data.results;
+        heroData = data.data.results;
 
         //Total de Heroes
-        var heroTotal = data.data.total;
+        heroTotal = data.data.total;
 
         //Contagem por request
-        var heroCount = data.data.count;
+        heroCount = data.data.count;
 
         //Lista
         adicionaLista(heroData);
@@ -33,6 +38,8 @@ function heroRequest(heroOffset){
             offset += heroCount
             heroRequest(offset);
         } else {
+            initPagination();
+            loader.classList.remove('loading');
             console.log('end');
             return false;
         }
@@ -68,7 +75,6 @@ function adicionaLista(data) {
 
         if(data[i].series.available > 0){   
             var heroSeries = data[i].series.items;
-            console.log(heroSeries.length)
             var series = 0;
             while( series < 3 && series < heroSeries.length ){
                 heroSeriesList += '<li>'+heroSeries[series].name+'</li>'
@@ -80,7 +86,6 @@ function adicionaLista(data) {
         
         if(data[i].events.available > 0){ 
             var heroEvents = data[i].events.items;
-            console.log(heroEvents.length)
             var events = 0;
             while( events < 3 && events < heroEvents.length ){
                 heroEventsList += '<li>'+heroEvents[events].name+'</li>'
@@ -96,6 +101,69 @@ function adicionaLista(data) {
         item += '<td class="eventos"><ul>'+heroEventsList+'</ul></td>';
         item += '</li>';
 
-        document.getElementById('heroestable').insertAdjacentHTML('beforeend', item);
+        heroesTable.insertAdjacentHTML('beforeend', item);
+    }
+}
+
+//Busca
+function busca(){
+    var busca = document.getElementById("busca").getElementsByTagName("input")[0];
+    var termo = busca.value.toUpperCase();
+    for (i = 0; i < heroesLines.length; i++) {
+        personagem = heroesLines[i].getElementsByTagName("td")[0];
+        if (personagem) {
+            if (personagem.innerHTML.toUpperCase().indexOf(termo) > -1) {
+                heroesLines[i].classList.add("ativo");
+            } else {
+                heroesLines[i].classList.remove("ativo");
+            }
+        }       
+    }
+}
+
+//Paginação
+var show, pageIndex, pageTotal
+function initPagination(){
+    console.log('paginacao')
+    show = 20;
+    pageIndex = 0;
+    pageTotal = Math.floor(heroTotal/show);
+    
+    var pageList = "";
+    var pagination = document.getElementsByClassName('paginacao')[0];
+    for (var p = 0; p <= pageTotal; p++) {
+        console.log('pag: '+p)
+        pageList += "<li><button onclick='changePage("+p+")'>"+p+"</button></li>"   
+    }
+    pagination.insertAdjacentHTML('beforeend', pageList);
+
+    console.log(pageTotal);
+    console.log(pageList);
+
+    changePage(pageIndex);
+}
+
+function changePage(pos){
+    console.log("pos: "+pos)
+    console.log("index: "+pageIndex);
+
+    var l = 0;
+    var hLenght = heroesLines.length;
+
+    while (l < hLenght-1){
+        heroesLines[l].classList.remove("ativo");
+        l++
+    }
+
+    if(pos == "next"){
+        pageIndex ++
+    } else if(pos == "prev") {
+        pageIndex --
+    } else if(Number.isInteger(pos)){
+        pageIndex = pos
+    }
+
+    for (var ref = pageIndex*show; ref <= (pageIndex+1)*show; ref++) {
+        heroesLines[ref].classList.add("ativo")
     }
 }

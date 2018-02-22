@@ -16,28 +16,34 @@
   <body>
     <header>
       <div class="wrapper flex">
-        <h1>Busca Marvel <span>Teste Front-End</h1>
-        <h2 class="ta-right">Yeshua Emanuel Braz</h2>
+        <h1>Busca Marvel</h1>
+        <!-- <h2 class="ta-right">Yeshua Emanuel Braz</h2> -->
       </div>
     </header>
     <section id="app">
       <div class="wrapper">
         <label id="busca">
           <span>Nome do Personagem:</span>  
-          <input type="text" placeholder="Busca">        
+          <input type="text" placeholder="Busca" onkeyup="busca()">        
         </label>
-        <table id="heroes" cellpadding="0" cellspacing="0" border="0">
-          <thead>
-            <tr>
-              <th class="personagem"><span>Personagem</span></th>
-              <th class="series"><span>Séries</span></th>
-              <th class="eventos"><span>Eventos</span></th>
-            </tr>
-          </thead>
-          <tbody id="heroestable">
+        <div id="loader" class="wrapper-table loading">
+          <table id="heroes" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                <th class="personagem"><span>Personagem</span></th>
+                <th class="series"><span>Séries</span></th>
+                <th class="eventos"><span>Eventos</span></th>
+              </tr>
+            </thead>
+            <tbody id="heroestable">
+              
+            </tbody>
+          </table>
+
+          <ul class="paginacao">
             
-          </tbody>
-        </table>
+          </ul>
+        </div>
       </div>
     </section>
     <script src="js/app.js" defer></script>
