@@ -3,13 +3,16 @@ var request = new XMLHttpRequest();
 var offset = 0;
 var url;
 
-var data, heroData, heroTotal, heroCount;
+var data, heroData, heroLimit, heroTotal, heroCount;
+
 var loader = document.getElementById('loader'); 
 var heroesTable = document.getElementById('heroestable');
 var heroesLines = heroesTable.getElementsByTagName("tr");
+var paginacao = document.getElementsByClassName('paginacao')[0];
 
 function heroRequest(heroOffset){
-    url = "https://gateway.marvel.com/v1/public/characters?ts=1&limit=100&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
+    loader.style.maxHeight = null;
+    url = "https://gateway.marvel.com/v1/public/characters?ts=1&limit=20&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
 
     //init request
     request.open('GET', url, true);
@@ -19,29 +22,18 @@ function heroRequest(heroOffset){
       if (this.status >= 200 && this.status < 400) {
 
         // Successo :)
-        data = JSON.parse(this.response);
-
+        marvelDB = JSON.parse(this.response);
         //Resultados
-        heroData = data.data.results;
+        heroData = marvelDB.data.results;
+        heroTotal = marvelDB.data.total;
+        heroLimit = marvelDB.data.limit;
 
-        //Total de Heroes
-        heroTotal = data.data.total;
-
-        //Contagem por request
-        heroCount = data.data.count;
-
-        //Lista
+        //constroi a lista
+        heroesTable.innerHTML = "";
         adicionaLista(heroData);
 
-        //Repete o request até completar a lista de heróis
-        if( offset+heroCount <= heroTotal && heroCount != 0 ){
-            offset += heroCount
-            heroRequest(offset);
-        } else {
+        if(paginacao.getElementsByTagName('li').length == 0) {
             initPagination();
-            loader.classList.remove('loading');
-            console.log('end');
-            return false;
         }
 
       } else {
@@ -58,14 +50,13 @@ function heroRequest(heroOffset){
 
     request.send();
 };
-
 heroRequest();
+
 
 //Construção da Lista
 function adicionaLista(data) {
-    var i;
-    for(i = 0; i < data.length; i++) {
-        var item = "";
+    
+    for(var i = 0; i < data.length; i++) {
         var heroName = data[i].name
         var heroDesc = data[i].description
         var heroPhoto = data[i].thumbnail.path+"/standard_xlarge."+data[i].thumbnail.extension
@@ -95,14 +86,18 @@ function adicionaLista(data) {
             heroEventsList = "<li>Nenhum evento encontrado</li>";
         }
 
+        var item = "";
         item += '<tr>';
         item += '<td class="personagem"><div class="img-wrapper"><img src='+heroPhoto+' title='+heroName+'/></div><h3>'+heroName+'</h3></td>';
         item += '<td class="series"><ul>'+heroSeriesList+'</ul></td>';
         item += '<td class="eventos"><ul>'+heroEventsList+'</ul></td>';
-        item += '</li>';
+        item += '</tr>';
 
         heroesTable.insertAdjacentHTML('beforeend', item);
     }
+
+    loader.classList.remove('loading');
+    loader.style.maxHeight = loader.scrollHeight+'px';
 }
 
 //Busca
@@ -122,30 +117,25 @@ function busca(){
 }
 
 //Paginação
-var show, pageIndex, pageTotal
+var pageIndex, pageTotal
 function initPagination(){
-    console.log('paginacao')
-    show = 20;
+
     pageIndex = 0;
-    pageTotal = Math.floor(heroTotal/show);
-    
+    pageTotal = Math.floor(heroTotal/20);
+
+    console.log(heroTotal)
+    console.log(pageTotal)
     var pageList = "";
-    var pagination = document.getElementsByClassName('paginacao')[0];
+
     for (var p = 0; p <= pageTotal; p++) {
-        console.log('pag: '+p)
-        pageList += "<li><button onclick='changePage("+p+")'>"+p+"</button></li>"   
+        console.log(p)
+        pageList += "<li><button onclick='changePage("+p+")'>"+p+"</button></li>";
     }
-    pagination.insertAdjacentHTML('beforeend', pageList);
 
-    console.log(pageTotal);
-    console.log(pageList);
-
-    changePage(pageIndex);
+    paginacao.innerHTML = pageList;
 }
 
 function changePage(pos){
-    console.log("pos: "+pos)
-    console.log("index: "+pageIndex);
 
     var l = 0;
     var hLenght = heroesLines.length;
@@ -163,7 +153,8 @@ function changePage(pos){
         pageIndex = pos
     }
 
-    for (var ref = pageIndex*show; ref <= (pageIndex+1)*show; ref++) {
-        heroesLines[ref].classList.add("ativo")
-    }
+    console.log('index: '+pos)
+    console.log('offset: '+pageIndex*heroLimit);
+
+    heroRequest(pageIndex*heroLimit);
 }

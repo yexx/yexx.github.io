@@ -35,7 +35,7 @@ header h1 span, header h2 { font-weight: 400; }
 header h1 { position: relative; }
 header h1::after { content: ''; display: block; width: 54px; height: 4px; background: #D42026; }
 
-.wrapper-table { position: relative; }
+.wrapper-table { position: relative; max-height: 37px; overflow: hidden; transition: max-height 0.8s ease-in-out; }
 
 .wrapper-table.loading::before {
 	content: ''; position: absolute; top: -10px; left: -10px; width: calc(100% + 20px); height: calc(100% + 20px);
@@ -60,8 +60,7 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 #heroes thead th.eventos { width: 50% }
 #heroes thead th span {	display: block; background: #D42026; padding: 9px 16px; }
 
-#heroes tbody tr { display: none; }
-#heroes tbody tr.ativo { display: table-row; opacity: 0; animation: fadeIn 0.3s ease 0.1s; animation-fill-mode: forwards; }
+#heroes tbody tr { animation: fadeIn 0.3s ease 0.1s; }
 #heroes tbody tr:hover { background: rgba(212,32,38,0.1); }
 #heroes tbody tr td { padding: 20px 0; font-size: 1.3125em; line-height: 1.1; border-bottom: 3px solid rgba(212,32,38,0.5); }
 
@@ -72,6 +71,6 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 #heroes tbody tr ul { padding: 0 26px 0 16px; list-style: none; }
 #heroes tbody tr ul li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.paginacao li { display: inline-block; margin: 0 5px 5px; }
+.paginacao li { display: inline-block; margin: 5px; }
 .paginacao li button { display: block; padding: 0px; width: 30px; height: 30px; line-height: 30px; border: 1px solid red; border-radius: 30px; text-align: center; color: #000; }
 
