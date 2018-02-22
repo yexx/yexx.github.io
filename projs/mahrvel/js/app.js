@@ -12,46 +12,41 @@ function heroRequest(heroOffset){
     //response request
     request.onload = function() {
       if (this.status >= 200 && this.status < 400) {
-        // Success :)
+
+        // Successo :)
         var data = JSON.parse(this.response);
 
-        //Results
+        //Resultados
         var heroData = data.data.results;
 
-        //Total of Heroes
+        //Total de Heroes
         var heroTotal = data.data.total;
 
-        //Heroes counted
+        //Contagem por request
         var heroCount = data.data.count;
 
-        //List
-        addToList(heroData);
+        //Lista
+        adicionaLista(heroData);
 
-        console.log('Offset : '+offset)
-        console.log('Count : '+heroCount)
-        console.log('Total : '+heroTotal)
-
+        //Repete o request até completar a lista de heróis
         if( offset+heroCount <= heroTotal && heroCount != 0 ){
-            
             offset += heroCount
             heroRequest(offset);
-            console.log(offset);
-
         } else {
             console.log('end');
             return false;
         }
 
       } else {
-        // Error :(
+        // Erro :(
         console.log(this);
       }
     }
 
-    //Error :()
+    //Erro :(
     request.onerror = function(error) {
         console.log(error);
-        console.log(offset)
+        console.log(offset);
     };
 
     request.send();
@@ -59,52 +54,48 @@ function heroRequest(heroOffset){
 
 heroRequest();
 
-//list contrutctor
-function addToList(data) {
+//Construção da Lista
+function adicionaLista(data) {
     var i;
     for(i = 0; i < data.length; i++) {
         var item = "";
         var heroName = data[i].name
         var heroDesc = data[i].description
         var heroPhoto = data[i].thumbnail.path+"/standard_xlarge."+data[i].thumbnail.extension
-        var heroSeries = [];
+
         var heroSeriesList = "";
+        var heroEventsList = "";
 
-        if( data[i].comics.available > 0 ){
-            var comic;
-            for (comic = 0; comic <= data[i].comics.returned-1; comic++) {
-                heroSeries.push(data[i].comics.items[comic].name);
+        if(data[i].series.available > 0){   
+            var heroSeries = data[i].series.items;
+            console.log(heroSeries.length)
+            var series = 0;
+            while( series < 3 && series < heroSeries.length ){
+                heroSeriesList += '<li>'+heroSeries[series].name+'</li>'
+                series ++
             }
-        }
-
-        if(data[i].series.available > 0){ 
-            var serie;
-            for (serie = 0; serie <= data[i].series.returned-1; serie++) {
-                heroSeries.push(data[i].series.items[serie].name);
-            }
+        } else {
+            heroSeriesList = "<li>Nenhuma série encontrada</li>";
         }
         
-        if(data[i].stories.available > 0){ 
-            var story;
-            for (story = 0; story <= data[i].stories.returned-1; story++) {
-                heroSeries.push(data[i].stories.items[story].name);
+        if(data[i].events.available > 0){ 
+            var heroEvents = data[i].events.items;
+            console.log(heroEvents.length)
+            var events = 0;
+            while( events < 3 && events < heroEvents.length ){
+                heroEventsList += '<li>'+heroEvents[events].name+'</li>'
+                events ++
             }
+        } else {
+            heroEventsList = "<li>Nenhum evento encontrado</li>";
         }
 
-        var seriesRef = 0;
-        while( seriesRef < 3 && seriesRef < heroSeries.length ){
-            heroSeriesList += '<li>'+heroSeries[seriesRef]+'</li>'
-            seriesRef ++
-        }
-
-        item += '<li class="hero">';
-        item += '<h1 class="name">'+heroName+'</h1>';
-        item += '<div class="photo">'
-        item += '   <img src='+heroPhoto+' title='+heroName+'/>';
-        item += '</div>';
-        item += '<ul>'+heroSeriesList+'</ul>';
+        item += '<tr>';
+        item += '<td class="personagem"><div class="img-wrapper"><img src='+heroPhoto+' title='+heroName+'/></div><h3>'+heroName+'</h3></td>';
+        item += '<td class="series"><ul>'+heroSeriesList+'</ul></td>';
+        item += '<td class="eventos"><ul>'+heroEventsList+'</ul></td>';
         item += '</li>';
 
-        document.getElementById("heroes").insertAdjacentHTML('beforeend', item);
+        document.getElementById('heroestable').insertAdjacentHTML('beforeend', item);
     }
 }

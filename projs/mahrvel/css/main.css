@@ -6,20 +6,48 @@
 }
 
 body {
-	font-family: 'Roboto', Arial, sans-serif;
+	font-size: 16px; font-family: 'Roboto', Arial, sans-serif; line-height: 1.2;
 }
 
+/* Commons */
+*, *::before, *::after { box-sizing: border-box; }
+h1,h2,h3,h4,ul { margin: 0; }
 
-#heroes { padding: 0px 20px; list-style: none; }
+.ta-left { text-align: left; }
+.ta-center { text-align: center; }
+.ta-right { text-align: right; }
 
-#heroes > li { 
-	position: relative; 
-	padding: 0.83em 0;  background: linear-gradient();
-	border-bottom: 1px solid #666; 
-	overflow: hidden; 
-	animation: fadeIn 0.3s ease; 
-}
-#heroes > li .photo { position: absolute; width: 200px; height: 100%; top: 0; right: 0; }
-#heroes > li .photo img { position: absolute; min-width: 100%; min-height: 100%; top: 50%; left: 50%; transform: translate(-50%,-50%) }
+.wrapper { width: 100%; padding: 0 42px; }
+.wrapper.flex { display: flex; }
 
+header { margin: 20px 0 34px; text-transform: uppercase; color: #D42026; }
 
+header h1,
+header h2 { font-size: 1.6875em; flex: 1 1 auto; }
+header h1 span, header h2 { font-weight: 400; }
+
+header h1 { position: relative; }
+header h1::after { content: ''; display: block; width: 54px; height: 4px; background: #D42026; }
+
+#busca { display: block; width: 400px; margin-bottom: 34px; }
+#busca span { display: block; color: #D42025; }
+#busca input { width: 100%; padding: 6px 8px 5px; border: 1px solid #a5a5a5; border-radius: 3px; }
+
+#heroes { width: 100%; table-layout: fixed; }
+#heroes thead th { padding-right: 10px; text-align: left; color: #fff; }
+	#heroes thead th:last-child { padding-right: 0; }
+
+#heroes thead th.personagem { width: 25% }
+#heroes thead th.series { width: 25% }
+#heroes thead th.eventos { width: 50% }
+#heroes thead th span {	display: block; background: #D42026; padding: 9px 16px; }
+
+#heroes tbody tr:hover { background: rgba(212,32,38,0.1); }
+#heroes tbody tr td { padding: 20px 0; font-size: 1.3125em; line-height: 1.1; border-bottom: 3px solid rgba(212,32,38,0.5); }
+
+#heroes tbody tr td.personagem div.img-wrapper { display: inline-block; width: 58px; height: 58px; margin: 0 25px 0 16px; border: 1px solid #000; border-radius: 58px; overflow: hidden; vertical-align: middle; }
+#heroes tbody tr td.personagem div.img-wrapper img { width: 100%; }
+#heroes tbody tr td.personagem h3 { display: inline-block; width: calc(100% - 101px); font-weight: 400; vertical-align: middle; } 
+
+#heroes tbody tr ul { padding: 0 26px 0 16px; list-style: none; }
+#heroes tbody tr ul li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
