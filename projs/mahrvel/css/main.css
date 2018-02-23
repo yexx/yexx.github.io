@@ -10,7 +10,7 @@
 	100% { transform: rotate(359deg); }
 }
 
-
+html,body { min-height: 100%; height: 100%; }
 body {
 	font-size: 16px; font-family: 'Roboto', Arial, sans-serif; line-height: 1.2;
 }
@@ -26,7 +26,10 @@ h1,h2,h3,h4,ul { margin: 0; }
 .wrapper { width: 100%; padding: 0 42px; }
 .wrapper.flex { display: flex; }
 
-header { margin: 20px 0 34px; text-transform: uppercase; color: #D42026; }
+
+/* App */
+main { display: flex; height: 100%; flex-flow: column; }
+header { padding-top: 20px; margin: 0 0 34px; text-transform: uppercase; color: #D42026; }
 
 header h1,
 header h2 { font-size: 1.6875em; flex: 1 1 auto; }
@@ -35,42 +38,66 @@ header h1 span, header h2 { font-weight: 400; }
 header h1 { position: relative; }
 header h1::after { content: ''; display: block; width: 54px; height: 4px; background: #D42026; }
 
-.wrapper-table { position: relative; max-height: 37px; overflow: hidden; transition: max-height 0.8s ease-in-out; }
+/* Section */
+#app { position: relative; flex: 1 1 auto; }
+#app .wrapper.flex { position: absolute; min-height: 540px; height: 100%; flex-flow: column; border-bottom: 12px solid #D42026; }
 
-.wrapper-table.loading::before {
-	content: ''; position: absolute; top: -10px; left: -10px; width: calc(100% + 20px); height: calc(100% + 20px);
-	background: rgba(0,0,0,.5);
-}
-.wrapper-table.loading::after {
-	content: ''; position: absolute; top: 50%; left: 50%; background: #D42026;
-	width: 20px; height: 20px; margin-top: -10px; margin-left: -10px;
-	animation: rotate 1s linear infinite;
-}
-
+/* Input Busca */
 #busca { display: block; width: 400px; margin-bottom: 34px; }
 #busca span { display: block; color: #D42025; }
 #busca input { width: 100%; padding: 6px 8px 5px; border: 1px solid #a5a5a5; border-radius: 3px; }
 
-#heroes { width: 100%; table-layout: fixed; }
-#heroes thead th { padding-right: 10px; text-align: left; color: #fff; }
-	#heroes thead th:last-child { padding-right: 0; }
+/* Area da Tabela */
+.wrapper-table { position: relative; height: 100%; overflow: hidden; }
+.wrapper-table::before { content: ''; position: absolute; bottom: 0; width: 100%; height: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%); }
 
-#heroes thead th.personagem { width: 25% }
-#heroes thead th.series { width: 25% }
-#heroes thead th.eventos { width: 50% }
-#heroes thead th span {	display: block; background: #D42026; padding: 9px 16px; }
+.wrapper-table .overflow { width: 100%; height: 100%; overflow-y: scroll; }
 
-#heroes tbody tr { animation: fadeIn 0.3s ease 0.1s; }
-#heroes tbody tr:hover { background: rgba(212,32,38,0.1); }
-#heroes tbody tr td { padding: 20px 0; font-size: 1.3125em; line-height: 1.1; border-bottom: 3px solid rgba(212,32,38,0.5); }
+.table { width: 100%; table-layout: fixed; }
+.table.fixed { position: absolute; top: 0px; width: calc(100% - 17px); z-index: 3; }
+.table thead th { padding-right: 10px; text-align: left; color: #fff; }
+	.table thead th:last-child { padding-right: 0; }
 
-#heroes tbody tr td.personagem div.img-wrapper { display: inline-block; width: 58px; height: 58px; margin: 0 25px 0 16px; border: 1px solid #000; border-radius: 58px; overflow: hidden; vertical-align: middle; }
-#heroes tbody tr td.personagem div.img-wrapper img { width: 100%; }
-#heroes tbody tr td.personagem h3 { display: inline-block; width: calc(100% - 101px); font-weight: 400; vertical-align: middle; } 
+.table thead th.personagem, .table thead th.series { width: 25% }
+.table thead th.eventos { width: 50% }
+.table thead th span {	display: block; background: #D42026; padding: 9px 16px; }
 
-#heroes tbody tr ul { padding: 0 26px 0 16px; list-style: none; }
-#heroes tbody tr ul li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.table tbody tr { animation: fadeIn 0.3s ease 0.1s; }
+.table tbody tr:hover { background: rgba(212,32,38,0.1); }
+.table tbody tr td { height: 112px; padding: 20px 0; font-size: 1.3125em; line-height: 1.1; border-bottom: 3px solid rgba(212,32,38,0.5); }
 
-.paginacao li { display: inline-block; margin: 5px; }
-.paginacao li button { display: block; padding: 0px; width: 30px; height: 30px; line-height: 30px; border: 1px solid red; border-radius: 30px; text-align: center; color: #000; }
+.table tbody tr td.personagem div.img-wrapper { display: inline-block; width: 58px; height: 58px; margin: 0 25px 0 16px; border: 1px solid #000; border-radius: 58px; overflow: hidden; vertical-align: middle; }
+.table tbody tr td.personagem div.img-wrapper img { width: 100%; }
+.table tbody tr td.personagem h3 { display: inline-block; width: calc(100% - 101px); font-weight: 400; vertical-align: middle; } 
 
+.table tbody tr ul { padding: 0 26px 0 16px; list-style: none; }
+.table tbody tr ul li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Paginacao */
+.paginacao { display: flex; padding: 16px 0; text-align: center; align-items: center; justify-content: center;  flex: 1 0 auto; }
+.paginacao li { display: block; margin: 5px; }
+.paginacao li button { display: block; padding: 0px; width: 32px; height: 32px; background: transparent; font-size: 1.3125em; line-height: 32px; border: 1px solid #D42026; border-radius: 32px; text-align: center; color: #D42026; }
+
+
+/* ------- MEDIA QUERIE ------- */
+@media (max-width: 512px){
+	header { padding: 12px 30px 0; margin-bottom: 12px; }
+	header h1 { width: 100%; font-size: 4.325vw; line-height: 1.3; }
+	header h1::after { height: 2px; }
+	header h2 {	display: none; }
+
+	#app { height: calc(100vh - 48px); }
+	.wrapper { padding: 0 0; }
+
+	#busca { width: 100%; margin-bottom: 12px; padding: 0 30px; }
+	.table.fixed { top: -1px; width: 100%; }
+	.table thead th:nth-child(n+2), .table tbody td:nth-child(n+2) { display: none; }
+	.table thead th.personagem { width: 100%; padding-right: 0; }
+
+	.table tbody tr td { height: auto; padding: 12px 0; }
+}
+
+@media (hover: none){
+	.table.fixed { top: -1px; width: 100%; }
+
+}

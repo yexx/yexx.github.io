@@ -1,6 +1,6 @@
 /* ----- REQUEST ----- */
 var request = new XMLHttpRequest();
-var offset = 0;
+var limit = 20; 
 var url;
 
 var data, heroData, heroLimit, heroTotal, heroCount;
@@ -10,10 +10,17 @@ var heroesTable = document.getElementById('heroestable');
 var heroesLines = heroesTable.getElementsByTagName("tr");
 var paginacao = document.getElementsByClassName('paginacao')[0];
 
-function heroRequest(heroOffset){
-    loader.style.maxHeight = null;
-    url = "https://gateway.marvel.com/v1/public/characters?ts=1&limit=20&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
+function heroRequest(index, name){
 
+    heroOffset = index * limit;
+
+    if(name && name != ""){
+        url = "https://gateway.marvel.com/v1/public/characters?ts=1&nameStartsWith="+name+"&limit="+limit+"&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
+    } else {
+        url = "https://gateway.marvel.com/v1/public/characters?ts=1&limit="+limit+"&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
+    }
+
+    console.log("offset: "+index, "Nome: "+name);
     //init request
     request.open('GET', url, true);
 
@@ -28,12 +35,16 @@ function heroRequest(heroOffset){
         heroTotal = marvelDB.data.total;
         heroLimit = marvelDB.data.limit;
 
+        console.log(marvelDB);
+
         //constroi a lista
         heroesTable.innerHTML = "";
-        adicionaLista(heroData);
-
-        if(paginacao.getElementsByTagName('li').length == 0) {
-            initPagination();
+        if(heroTotal > 0){
+            adicionaLista(heroData);
+            initPagination(index);
+        } else {
+            heroesTable.innerHTML = "<tr><td colspan='3'>Nenhum Resultado Encontrado</td></tr>";
+            paginacao.innerHTML = "";
         }
 
       } else {
@@ -45,13 +56,11 @@ function heroRequest(heroOffset){
     //Erro :(
     request.onerror = function(error) {
         console.log(error);
-        console.log(offset);
     };
 
     request.send();
 };
-heroRequest();
-
+heroRequest(0);
 
 //Construção da Lista
 function adicionaLista(data) {
@@ -97,39 +106,40 @@ function adicionaLista(data) {
     }
 
     loader.classList.remove('loading');
-    loader.style.maxHeight = loader.scrollHeight+'px';
 }
 
-//Busca
-function busca(){
-    var busca = document.getElementById("busca").getElementsByTagName("input")[0];
-    var termo = busca.value.toUpperCase();
-    for (i = 0; i < heroesLines.length; i++) {
-        personagem = heroesLines[i].getElementsByTagName("td")[0];
-        if (personagem) {
-            if (personagem.innerHTML.toUpperCase().indexOf(termo) > -1) {
-                heroesLines[i].classList.add("ativo");
-            } else {
-                heroesLines[i].classList.remove("ativo");
-            }
-        }       
-    }
-}
+//Busca 
+var busca = document.getElementById("busca").getElementsByTagName("input")[0];
+var termo, timer;
+busca.addEventListener('input', function(e){
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+        termo = busca.value.toUpperCase();
+        console.log("Buscando por: "+termo)
+        heroRequest(0,termo);
+    },2000);
+});
 
 //Paginação
-var pageIndex, pageTotal
-function initPagination(){
-
-    pageIndex = 0;
-    pageTotal = Math.floor(heroTotal/20);
-
-    console.log(heroTotal)
-    console.log(pageTotal)
+var pageTotal;
+function initPagination(index){
+    paginacao.innerHTML = "";
+    pageTotal = Math.floor(heroTotal/heroLimit);
+    console.log("Total de paginas:"+pageTotal);
     var pageList = "";
 
-    for (var p = 0; p <= pageTotal; p++) {
-        console.log(p)
-        pageList += "<li><button onclick='changePage("+p+")'>"+p+"</button></li>";
+    if (index >= 2 ) {
+        for (var p = index-2; p <= index+3; p++) {
+            pageList += "<li><button onclick='changePage("+p+")'>"+(p+1)+"</button></li>";
+        }
+    } else if (index >= 1 ) {
+        for (var p = index-1; p <= index+4; p++) {
+            pageList += "<li><button onclick='changePage("+p+")'>"+(p+1)+"</button></li>";
+        }
+    } else {
+        for (var p = index; p <= index+5; p++) {
+            pageList += "<li><button onclick='changePage("+p+")'>"+(p+1)+"</button></li>";
+        }
     }
 
     paginacao.innerHTML = pageList;
@@ -153,8 +163,5 @@ function changePage(pos){
         pageIndex = pos
     }
 
-    console.log('index: '+pos)
-    console.log('offset: '+pageIndex*heroLimit);
-
-    heroRequest(pageIndex*heroLimit);
+    heroRequest(pageIndex, termo);
 }

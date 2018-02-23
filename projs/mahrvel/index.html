@@ -14,37 +14,50 @@
     <link href="css/main.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header>
-      <div class="wrapper flex">
-        <h1>Busca Marvel</h1>
-        <!-- <h2 class="ta-right">Yeshua Emanuel Braz</h2> -->
-      </div>
-    </header>
-    <section id="app">
-      <div class="wrapper">
-        <label id="busca">
-          <span>Nome do Personagem:</span>  
-          <input type="text" placeholder="Busca" onkeyup="busca()">        
-        </label>
-        <div id="loader" class="wrapper-table loading">
-          <table id="heroes" cellpadding="0" cellspacing="0" border="0">
-            <thead>
-              <tr>
-                <th class="personagem"><span>Personagem</span></th>
-                <th class="series"><span>Séries</span></th>
-                <th class="eventos"><span>Eventos</span></th>
-              </tr>
-            </thead>
-            <tbody id="heroestable">
-              <!-- tabela -->
-            </tbody>
-          </table>
+    <main>
+      <header>
+        <div class="wrapper flex">
+          <h1>Busca Marvel <span>Teste Front-End</span></h1>
+          <h2 class="ta-right">Yeshua Emanuel Braz</h2>
         </div>
-        <ul class="paginacao">
-          <!-- paginas -->
-        </ul>
-      </div>
-    </section>
+      </header>
+      <section id="app">
+        <div class="wrapper flex">
+          <label id="busca">
+            <span>Nome do Personagem:</span>  
+            <input type="text" placeholder="Busca">        
+          </label>
+          <div id="loader" class="wrapper-table loading">
+            <div class="overflow">
+              <table class="table fixed" cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                  <tr>
+                    <th class="personagem"><span>Personagem</span></th>
+                    <th class="series"><span>Séries</span></th>
+                    <th class="eventos"><span>Eventos</span></th>
+                  </tr>
+                </thead>
+              </table>
+              <table id="heroes" class="table" cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                  <tr>
+                    <th class="personagem"><span>Personagem</span></th>
+                    <th class="series"><span>Séries</span></th>
+                    <th class="eventos"><span>Eventos</span></th>
+                  </tr>
+                </thead>
+                <tbody id="heroestable">
+                  <!-- tabela -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <ul class="paginacao">
+            <!-- paginas -->
+          </ul>
+        </div>
+      </section>
+    </main>
     <script src="js/app.js" defer></script>
   </body>
 </html>
