@@ -37,12 +37,12 @@ h1,h2,h3,h4,ul { margin: 0; }
 main { display: flex; height: 100%; flex-flow: column; }
 header { padding-top: 20px; margin: 0 0 34px; text-transform: uppercase; color: #D42026; }
 
-header h1,
-header h2 { font-size: 1.6875em; flex: 1 1 auto; }
-header h1 span, header h2 { font-weight: 400; }
+main > header h1,
+main > header h2 { font-size: 1.6875em; flex: 1 1 auto; }
+main > header h1 span, header h2 { font-weight: 400; }
 
-header h1 { position: relative; }
-header h1::after { content: ''; display: block; width: 54px; height: 4px; background: #D42026; }
+main > header h1 { position: relative; }
+main > header h1::after { content: ''; display: block; width: 54px; height: 4px; background: #D42026; }
 
 /* Section */
 #app { position: relative; flex: 1 1 auto; }
@@ -89,11 +89,12 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 .popup { position: fixed; top: 0; left: 0; display: flex; width: 100%; height: 100%; visibility: hidden; opacity: 0; justify-content: center; align-items: center; z-index: 9; }
 
 .popup .backdrop { position: absolute; display: block; width: 100%; height: 100%; background: #000; opacity: 0; transition: opacity 0.3s ease; }
-.popup .popup-content { position: relative; display: flex; flex-flow: row; width: 100%; max-width: 800px; height: 500px; background: #fff; padding: 20px; border-radius: 5px; border-bottom: 6px solid #D42026; align-items: center; transform: scale(1.1); transition: transform 0.3s ease-in-out 0s; }
+.popup .popup-content { position: relative; display: flex; flex-flow: row; width: 100%; max-width: 800px; height: 500px; background: #fff; padding: 20px; border-radius: 5px; border-bottom: 6px solid #D42026; align-items: center; transform: scale(1.1); transition: transform 0.3s ease-in-out; }
 .popup .popup-content .image-wrapper { position: relative; flex: 0 0 auto; width: 300px; height: 450px; background: #c6c6c6; border: 2px solid black; box-shadow: 0px 0px 0px #000; overflow: hidden; transition: box-shadow 0.3s ease-in-out 0.1s; }
 .popup .popup-content .image-wrapper img { display: block; opacity: 0; transition: opacity 0.4s ease-in-out; }
 .popup .popup-content .image-wrapper img.loaded { opacity: 1; }
-.popup .popup-content .image-wrapper h1 { position: absolute; top: 0px; left: 0; width: 100%; padding: 18px 0 8px; background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 80%); text-align: center; text-transform: uppercase; font-style: italic; color: #fff; text-shadow: 3px 3px 0px #000; }
+.popup .popup-content .image-wrapper header { position: absolute; top: 0px; left: 0; width: 100%; padding: 18px 0 8px; background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 95%); text-align: center; text-transform: uppercase; font-style: italic; color: #fff; text-shadow: 3px 3px 0px #000; }
+.popup .popup-content .image-wrapper header p { margin: 0; font-weight: 900; }
 
 .popup .popup-content .texto { height: 100%; padding: 8px 18px; overflow-y: scroll; }
 .popup .popup-content .texto > div { margin-bottom: 16px; }
@@ -104,7 +105,7 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 	.popup.ativo .popup-content { transform: scale(1); }
 	.popup.ativo .popup-content .image-wrapper { box-shadow: -5px 5px 0px #000; }
 	.popup.ativo .popup-content .image-wrapper img { animation: scale 26s linear alternate infinite; }
-	.popup.ativo .popup-content .image-wrapper h1 { animation: introScaleDown 0.8s cubic-bezier(0.95, 0.05, 0.795, 0.035); }
+	.popup.ativo .popup-content .image-wrapper header { animation: introScaleDown 0.8s cubic-bezier(0.95, 0.05, 0.795, 0.035); }
 
 
 /* ------- MEDIA QUERIE ------- */

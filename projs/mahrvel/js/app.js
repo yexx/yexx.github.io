@@ -123,6 +123,7 @@ function adicionaLista(data) {
 var popupContainer = document.getElementById('detalhes')
 var popupImage = popupContainer.getElementsByTagName('img')[0];
 var popupNome = popupContainer.getElementsByClassName('nome')[0];
+var popupUniverse = popupContainer.getElementsByClassName('universe')[0];
 var popupDescription = popupContainer.getElementsByClassName('desc')[0];
 var popupEvents = popupContainer.getElementsByClassName('events')[0];
 var popupSeries = popupContainer.getElementsByClassName('series')[0];
@@ -138,7 +139,15 @@ function openPopup(id){
     popupContainer.classList.add('ativo');
 
     //Nome
-    popupNome.innerHTML = lookup[id].name;
+    var splitName = lookup[id].name.split(" (");
+    popupNome.innerHTML = splitName[0];
+    if( splitName.length > 1){
+        popupUniverse.style.display = "block";
+        popupUniverse.innerHTML = "("+splitName[1];
+    } else {
+        popupUniverse.style.display = "none";
+        popupUniverse.innerHTML = "";
+    }
 
     //Imagem
     popupImage.setAttribute('src', lookup[id].thumbnail.path+"/portrait_uncanny."+lookup[id].thumbnail.extension);
