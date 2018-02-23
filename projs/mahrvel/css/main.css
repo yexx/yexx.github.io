@@ -99,5 +99,4 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 
 @media (hover: none){
 	.table.fixed { top: -1px; width: 100%; }
-
 }
