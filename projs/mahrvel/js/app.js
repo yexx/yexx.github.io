@@ -193,6 +193,13 @@ popupContainer.getElementsByClassName('backdrop')[0].addEventListener('click', f
     popupImage.classList.remove('loaded');
 });
 
+popupContainer.getElementsByClassName('fechar')[0].addEventListener('click', function(){
+    popupContainer.classList.remove('ativo');
+    popupImage.setAttribute('src', '')
+    popupImage.classList.remove('loaded');
+    return false;
+});
+
 //Busca 
 var busca = document.getElementById("busca").getElementsByTagName("input")[0];
 var termo, timer;
