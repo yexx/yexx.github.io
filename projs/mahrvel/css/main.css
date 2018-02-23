@@ -79,6 +79,14 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 .paginacao li button { display: block; padding: 0px; width: 32px; height: 32px; background: transparent; font-size: 1.3125em; line-height: 32px; border: 1px solid #D42026; border-radius: 32px; text-align: center; color: #D42026; }
 
 
+/* Popup */
+.popup { position: fixed; top: 0; left: 0; display: flex; width: 100%; height: 100%; visibility: hidden; opacity: 0; justify-content: center; align-items: center; z-index: 9;}
+	.popup.ativo { visibility: visible; opacity: 1; }
+
+.popup .backdrop { position: absolute; display: block; width: 100%; height: 100%; background: #000; opacity: 0.4; }
+.popup .popup-content { position: relative; width: 100%; max-width: 800px; background: #fff; padding: 20px; 	}
+
+
 /* ------- MEDIA QUERIE ------- */
 @media (max-width: 512px){
 	header { padding: 12px 30px 0; margin-bottom: 12px; }

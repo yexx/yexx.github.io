@@ -3,14 +3,14 @@ var request = new XMLHttpRequest();
 var limit = 20; 
 var url;
 
-var data, heroData, heroLimit, heroTotal, heroCount;
+var lookup, marvelDB, heroData, heroLimit, heroTotal, heroCount;
 
 var loader = document.getElementById('loader'); 
 var heroesTable = document.getElementById('heroestable');
 var heroesLines = heroesTable.getElementsByTagName("tr");
 var paginacao = document.getElementsByClassName('paginacao')[0];
 
-function heroRequest(index, name){
+function dbRequest(index, name){
 
     heroOffset = index * limit;
 
@@ -29,19 +29,23 @@ function heroRequest(index, name){
       if (this.status >= 200 && this.status < 400) {
 
         // Successo :)
-        marvelDB = JSON.parse(this.response);
+        var marvelDB = JSON.parse(this.response);
         //Resultados
         heroData = marvelDB.data.results;
         heroTotal = marvelDB.data.total;
         heroLimit = marvelDB.data.limit;
-
-        console.log(marvelDB);
 
         //constroi a lista
         heroesTable.innerHTML = "";
         if(heroTotal > 0){
             adicionaLista(heroData);
             initPagination(index);
+
+            lookup = {};
+            for (var i = 0, len = heroData.length; i < len; i++) {
+                lookup[heroData[i].id] = heroData[i];
+            }
+
         } else {
             heroesTable.innerHTML = "<tr><td colspan='3'>Nenhum Resultado Encontrado</td></tr>";
             paginacao.innerHTML = "";
@@ -60,15 +64,17 @@ function heroRequest(index, name){
 
     request.send();
 };
-heroRequest(0);
+
+dbRequest(0);
 
 //Construção da Lista
 function adicionaLista(data) {
-    
     for(var i = 0; i < data.length; i++) {
-        var heroName = data[i].name
-        var heroDesc = data[i].description
-        var heroPhoto = data[i].thumbnail.path+"/standard_xlarge."+data[i].thumbnail.extension
+
+        var heroId = data[i].id;
+        var heroName = data[i].name;
+        var heroDesc = data[i].description;
+        var heroPhoto = data[i].thumbnail.path+"/standard_xlarge."+data[i].thumbnail.extension;
 
         var heroSeriesList = "";
         var heroEventsList = "";
@@ -77,8 +83,8 @@ function adicionaLista(data) {
             var heroSeries = data[i].series.items;
             var series = 0;
             while( series < 3 && series < heroSeries.length ){
-                heroSeriesList += '<li>'+heroSeries[series].name+'</li>'
-                series ++
+                heroSeriesList += '<li>'+heroSeries[series].name+'</li>';
+                series ++;
             }
         } else {
             heroSeriesList = "<li>Nenhuma série encontrada</li>";
@@ -89,14 +95,14 @@ function adicionaLista(data) {
             var events = 0;
             while( events < 3 && events < heroEvents.length ){
                 heroEventsList += '<li>'+heroEvents[events].name+'</li>'
-                events ++
+                events ++;
             }
         } else {
             heroEventsList = "<li>Nenhum evento encontrado</li>";
         }
 
         var item = "";
-        item += '<tr>';
+        item += '<tr data-id='+heroId+'>';
         item += '<td class="personagem"><div class="img-wrapper"><img src='+heroPhoto+' title='+heroName+'/></div><h3>'+heroName+'</h3></td>';
         item += '<td class="series"><ul>'+heroSeriesList+'</ul></td>';
         item += '<td class="eventos"><ul>'+heroEventsList+'</ul></td>';
@@ -105,7 +111,60 @@ function adicionaLista(data) {
         heroesTable.insertAdjacentHTML('beforeend', item);
     }
 
-    loader.classList.remove('loading');
+    for (var tr = 0; tr < heroesLines.length; tr++) {
+        heroesLines[tr].addEventListener('click', function(e){
+            openPopup(this.getAttribute('data-id'));
+        });
+    }
+}
+
+//Mostrar detalhes
+//popup elements
+var popupContainer = document.getElementById('detalhes')
+var popupNome = popupContainer.getElementsByClassName('nome')[0];
+var popupDescription = popupContainer.getElementsByClassName('desc')[0];
+var popupEvents = popupContainer.getElementsByClassName('events')[0];
+var popupSeries = popupContainer.getElementsByClassName('series')[0];
+
+function openPopup(id){
+    console.log(lookup[id]);
+    
+    popupContainer.classList.add('ativo');
+
+    //Nome
+    popupNome.innerHTML = lookup[id].name;
+
+    //Descricao
+    if( lookup[id].description != "" ){
+        popupDescription.style.display = "block";
+        popupDescription.innerHTML = lookup[id].description
+    } else {
+        popupDescription.style.display = "none";
+    }
+
+    //Eventos
+    if( lookup[id].events.available > 0) {
+        var events = ""
+        for (var i = 0; i < lookup[id].events.items.length; i++) {
+            events += "<li>"+lookup[id].events.items[i].name+"</li>";
+        }
+    } else {
+        var events = "<li>Nenhum Evento Encontrado</li>";
+    }
+
+    popupEvents.getElementsByTagName('ul')[0].innerHTML = events;
+
+    //series
+    if( lookup[id].series.available > 0) {
+        var series = ""
+        for (var i = 0; i < lookup[id].series.items.length; i++) {
+            series += "<li>"+lookup[id].series.items[i].name+"</li>";
+        }
+    } else {
+        var series = "<li>Nenhuma Série Encontrado</li>";
+    }
+
+    popupSeries.getElementsByTagName('ul')[0].innerHTML = series;
 }
 
 //Busca 
@@ -116,7 +175,7 @@ busca.addEventListener('input', function(e){
     timer = setTimeout(function(){
         termo = busca.value.toUpperCase();
         console.log("Buscando por: "+termo)
-        heroRequest(0,termo);
+        dbRequest(0,termo);
     },2000);
 });
 
@@ -163,5 +222,5 @@ function changePage(pos){
         pageIndex = pos
     }
 
-    heroRequest(pageIndex, termo);
+    dbRequest(pageIndex, termo);
 }
