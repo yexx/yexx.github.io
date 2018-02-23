@@ -121,18 +121,28 @@ function adicionaLista(data) {
 //Mostrar detalhes
 //popup elements
 var popupContainer = document.getElementById('detalhes')
+var popupImage = popupContainer.getElementsByTagName('img')[0];
 var popupNome = popupContainer.getElementsByClassName('nome')[0];
 var popupDescription = popupContainer.getElementsByClassName('desc')[0];
 var popupEvents = popupContainer.getElementsByClassName('events')[0];
 var popupSeries = popupContainer.getElementsByClassName('series')[0];
 
+//Escuta o Load das imagens
+popupImage.addEventListener('load', function(){
+    this.classList.add('loaded')
+});
+
 function openPopup(id){
     console.log(lookup[id]);
-    
+
     popupContainer.classList.add('ativo');
 
     //Nome
     popupNome.innerHTML = lookup[id].name;
+
+    //Imagem
+    popupImage.setAttribute('src', lookup[id].thumbnail.path+"/portrait_uncanny."+lookup[id].thumbnail.extension);
+    popupImage.setAttribute('alt', lookup[id].name);
 
     //Descricao
     if( lookup[id].description != "" ){
@@ -166,6 +176,13 @@ function openPopup(id){
 
     popupSeries.getElementsByTagName('ul')[0].innerHTML = series;
 }
+
+//Fecha Popup
+popupContainer.getElementsByClassName('backdrop')[0].addEventListener('click', function(){
+    popupContainer.classList.remove('ativo');
+    popupImage.setAttribute('src', '')
+    popupImage.classList.remove('loaded');
+});
 
 //Busca 
 var busca = document.getElementById("busca").getElementsByTagName("input")[0];

@@ -5,9 +5,15 @@
 	100% { opacity: 1; transform: translate(0,0); }
 }
 
-@keyframes rotate {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(359deg); }
+@keyframes scale {
+	0% { transform: scale(1) rotate(0); }
+	100% { transform: scale(1.2) rotate(2deg); }
+}
+
+@keyframes introScaleDown {
+	0% { opacity: 0; transform: scale(3) rotate(3deg); text-shadow: 0px 0px 0px #000; }
+	50% { opacity: 1; transform: scale(1) rotate(0deg); text-shadow: 0px 0px 0px #000; }
+	100% { opacity: 1; transform: scale(1) rotate(0deg); text-shadow: 3px 3px 0px #000; }
 }
 
 html,body { min-height: 100%; height: 100%; }
@@ -74,17 +80,31 @@ header h1::after { content: ''; display: block; width: 54px; height: 4px; backgr
 .table tbody tr ul li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Paginacao */
-.paginacao { display: flex; padding: 16px 0; text-align: center; align-items: center; justify-content: center;  flex: 1 0 auto; }
+.paginacao { display: flex; flex: 1 0 auto; padding: 16px 0; text-align: center; align-items: center; justify-content: center;  }
 .paginacao li { display: block; margin: 5px; }
 .paginacao li button { display: block; padding: 0px; width: 32px; height: 32px; background: transparent; font-size: 1.3125em; line-height: 32px; border: 1px solid #D42026; border-radius: 32px; text-align: center; color: #D42026; }
 
 
 /* Popup */
-.popup { position: fixed; top: 0; left: 0; display: flex; width: 100%; height: 100%; visibility: hidden; opacity: 0; justify-content: center; align-items: center; z-index: 9;}
-	.popup.ativo { visibility: visible; opacity: 1; }
+.popup { position: fixed; top: 0; left: 0; display: flex; width: 100%; height: 100%; visibility: hidden; opacity: 0; justify-content: center; align-items: center; z-index: 9; }
 
-.popup .backdrop { position: absolute; display: block; width: 100%; height: 100%; background: #000; opacity: 0.4; }
-.popup .popup-content { position: relative; width: 100%; max-width: 800px; background: #fff; padding: 20px; 	}
+.popup .backdrop { position: absolute; display: block; width: 100%; height: 100%; background: #000; opacity: 0; transition: opacity 0.3s ease; }
+.popup .popup-content { position: relative; display: flex; flex-flow: row; width: 100%; max-width: 800px; height: 500px; background: #fff; padding: 20px; border-radius: 5px; border-bottom: 6px solid #D42026; align-items: center; transform: scale(1.1); transition: transform 0.3s ease-in-out 0s; }
+.popup .popup-content .image-wrapper { position: relative; flex: 0 0 auto; width: 300px; height: 450px; background: #c6c6c6; border: 2px solid black; box-shadow: 0px 0px 0px #000; overflow: hidden; transition: box-shadow 0.3s ease-in-out 0.1s; }
+.popup .popup-content .image-wrapper img { display: block; opacity: 0; transition: opacity 0.4s ease-in-out; }
+.popup .popup-content .image-wrapper img.loaded { opacity: 1; }
+.popup .popup-content .image-wrapper h1 { position: absolute; top: 0px; left: 0; width: 100%; padding: 18px 0 8px; background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 80%); text-align: center; text-transform: uppercase; font-style: italic; color: #fff; text-shadow: 3px 3px 0px #000; }
+
+.popup .popup-content .texto { height: 100%; padding: 8px 18px; overflow-y: scroll; }
+.popup .popup-content .texto > div { margin-bottom: 16px; }
+.popup .popup-content .texto > div h3 { display: block; width: 120px; margin-bottom: 8px; padding: 5px 0px; background: #D42028; text-align: center; text-transform: uppercase; box-shadow: -3px 3px 0px #000; color: #fff; }
+
+.popup.ativo { visibility: visible; opacity: 1; transform: scale(1); }
+	.popup.ativo .backdrop { opacity: 0.4; }
+	.popup.ativo .popup-content { transform: scale(1); }
+	.popup.ativo .popup-content .image-wrapper { box-shadow: -5px 5px 0px #000; }
+	.popup.ativo .popup-content .image-wrapper img { animation: scale 26s linear alternate infinite; }
+	.popup.ativo .popup-content .image-wrapper h1 { animation: introScaleDown 0.8s cubic-bezier(0.95, 0.05, 0.795, 0.035); }
 
 
 /* ------- MEDIA QUERIE ------- */
