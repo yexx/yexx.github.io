@@ -102,7 +102,7 @@ function listConstructor(data) {
 
         var item = "";
         item += '<tr data-id='+heroId+'>';
-        item += '<td class="personagem"><div class="img-wrapper"><img src='+heroPhoto+' title='+heroName+'/></div><h3>'+heroName+'</h3></td>';
+        item += '<td class="character"><div class="img-wrapper"><img src='+heroPhoto+' title='+heroName+'/></div><h3>'+heroName+'</h3></td>';
         item += '<td class="series"><ul>'+heroSeriesList+'</ul></td>';
         item += '<td class="eventos"><ul>'+heroEventsList+'</ul></td>';
         item += '</tr>';
@@ -190,7 +190,7 @@ popupContainer.getElementsByClassName('backdrop')[0].addEventListener('click', f
     popupImage.classList.remove('loaded');
 });
 
-popupContainer.getElementsByClassName('fechar')[0].addEventListener('click', function(){
+popupContainer.getElementsByClassName('close')[0].addEventListener('click', function(){
     popupContainer.classList.remove('ativo');
     popupImage.setAttribute('src', '')
     popupImage.classList.remove('loaded');
@@ -198,13 +198,13 @@ popupContainer.getElementsByClassName('fechar')[0].addEventListener('click', fun
 });
 
 //Busca 
-var busca = document.getElementById("busca").getElementsByTagName("input")[0];
-var termo, timer;
-busca.addEventListener('input', function(e){
+var search = document.getElementById("search").getElementsByTagName("input")[0];
+var term, timer;
+search.addEventListener('input', function(e){
     clearTimeout(timer);
     timer = setTimeout(function(){
-        termo = busca.value.toUpperCase();
-        dbRequest(0,termo);
+        term = search.value.toUpperCase();
+        dbRequest(0,term);
     },2000);
 });
 
@@ -282,7 +282,7 @@ function changePage(pos){
         pageIndex = parseInt(pos);
     }
 
-    dbRequest(pageIndex, termo);
+    dbRequest(pageIndex, term);
 }
 
 // Proximo e anterior

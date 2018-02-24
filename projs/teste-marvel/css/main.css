@@ -48,10 +48,10 @@ main > header h1::after { content: ''; display: block; width: 54px; height: 4px;
 #app { position: relative; flex: 1 1 auto; }
 #app .wrapper.flex { position: absolute; min-height: 540px; height: 100%; flex-flow: column; border-bottom: 12px solid #D42026; }
 
-/* Input Busca */
-#busca { display: block; width: 400px; margin-bottom: 34px; }
-#busca span { display: block; color: #D42025; }
-#busca input { width: 100%; padding: 6px 8px 5px; border: 1px solid #a5a5a5; border-radius: 3px; }
+/* Input search */
+#search { display: block; width: 400px; margin-bottom: 34px; }
+#search span { display: block; color: #D42025; }
+#search input { width: 100%; padding: 6px 8px 5px; border: 1px solid #a5a5a5; border-radius: 3px; }
 
 /* Area da Tabela */
 .wrapper-table { position: relative; height: 100%; overflow: hidden; }
@@ -64,7 +64,7 @@ main > header h1::after { content: ''; display: block; width: 54px; height: 4px;
 .table thead th { padding-right: 10px; text-align: left; font-weight: 400; color: #fff; }
 	.table thead th:last-child { padding-right: 0; }
 
-.table thead th.personagem, .table thead th.series { width: 25% }
+.table thead th.character, .table thead th.series { width: 25% }
 .table thead th.eventos { width: 50% }
 .table thead th span {	display: block; background: #D42026; padding: 9px 16px; }
 
@@ -72,9 +72,9 @@ main > header h1::after { content: ''; display: block; width: 54px; height: 4px;
 .table tbody tr:hover { background: rgba(212,32,38,0.1); }
 .table tbody tr td { height: 112px; padding: 20px 0; font-size: 1.3125em; line-height: 1.145; border-bottom: 3px solid rgba(212,32,38,0.5); }
 
-.table tbody tr td.personagem div.img-wrapper { display: inline-block; width: 58px; height: 58px; margin: 0 25px 0 16px; border: 1px solid #000; border-radius: 58px; overflow: hidden; vertical-align: middle; }
-.table tbody tr td.personagem div.img-wrapper img { width: 100%; }
-.table tbody tr td.personagem h3 { display: inline-block; width: calc(100% - 101px); font-weight: 400; vertical-align: middle; } 
+.table tbody tr td.character div.img-wrapper { display: inline-block; width: 58px; height: 58px; margin: 0 25px 0 16px; border: 1px solid #000; border-radius: 58px; overflow: hidden; vertical-align: middle; }
+.table tbody tr td.character div.img-wrapper img { width: 100%; }
+.table tbody tr td.character h3 { display: inline-block; width: calc(100% - 101px); font-weight: 400; vertical-align: middle; } 
 
 .table tbody tr ul { padding: 0 26px 0 16px; list-style: none; }
 .table tbody tr ul li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -82,6 +82,7 @@ main > header h1::after { content: ''; display: block; width: 54px; height: 4px;
 /* Paginacao */
 .wrapper-pagination { text-align: center; }
 .wrapper-pagination > button { display: inline-block; width: 12px; height: 16px; background: url('../images/ico-pagination.png') no-repeat; color: transparent; border: 0; vertical-align: middle; }
+	.wrapper-pagination > button[disabled="disabled"] { opacity: 0.2; }
 	.wrapper-pagination > button.prevPage { margin-right: 12px; background-position: bottom center; }
 	.wrapper-pagination > button.nextPage { margin-left: 12px; background-position: top center; }
 	.wrapper-pagination > button.inativo { opacity: 0.5; }
@@ -97,19 +98,19 @@ main > header h1::after { content: ''; display: block; width: 54px; height: 4px;
 
 .popup .backdrop { position: absolute; display: block; width: 100%; height: 100%; background: #000; opacity: 0; transition: opacity 0.3s ease; }
 .popup .popup-content { position: relative; display: flex; flex-flow: row; width: 100%; max-width: 800px; height: 500px; background: #fff; padding: 20px; border-radius: 5px; border-bottom: 6px solid #D42026; align-items: center; transform: scale(1.1); transition: transform 0.3s ease-in-out; }
-	.popup .popup-content a { position: absolute; top: 20px; right: 20px; width: 25px; height: 25px; background: #d42026; line-height: 23px; text-decoration: none; text-align: center; color: #fff; border: 2px solid #d42026; z-index: 2; }
+	.popup .popup-content a.close { position: absolute; top: 20px; right: 20px; width: 25px; height: 25px; background: #d42026; line-height: 23px; text-decoration: none; text-align: center; color: #fff; border: 2px solid #d42026; z-index: 2; }
 .popup .popup-content .image-wrapper { position: relative; flex: 0 0 auto; width: 300px; height: 450px; background: #c6c6c6; border: 2px solid black; box-shadow: 0px 0px 0px #000; overflow: hidden; transition: box-shadow 0.3s ease-in-out 0.1s; }
 .popup .popup-content .image-wrapper img { display: block; opacity: 0; transition: opacity 0.4s ease-in-out; }
 .popup .popup-content .image-wrapper img.loaded { opacity: 1; }
 .popup .popup-content .image-wrapper header { position: absolute; top: 0px; left: 0; width: 100%; padding: 18px 0 8px; background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 95%); text-align: center; text-transform: uppercase; font-style: italic; color: #fff; text-shadow: 3px 3px 0px #000; }
 .popup .popup-content .image-wrapper header p { margin: 0; font-weight: 900; }
 
-.popup .popup-content .texto { flex: 1 1 auto; height: calc(100% - 25px); margin-top: 25px; padding: 8px 18px; overflow-y: scroll; }
-.popup .popup-content .texto > div { margin-bottom: 16px; }
-.popup .popup-content .texto > div h3 { display: block; width: 120px; margin-bottom: 12px; padding: 5px 0px; background: #D42028; text-align: center; text-transform: uppercase; box-shadow: -3px 3px 0px #000; color: #fff; }
-.popup .popup-content .texto > div ul { list-style: none; padding-left: 8px; }
-.popup .popup-content .texto > div ul li { margin-bottom: 8px; }
-.popup .popup-content .texto > div ul li::after { content: ''; display: block; width: 25px; height: 1px; margin-top: 8px; background: #d4d4d4; }
+.popup .popup-content .text-content { flex: 1 1 auto; height: calc(100% - 25px); margin-top: 25px; padding: 8px 18px; overflow-y: scroll; }
+.popup .popup-content .text-content > div { margin-bottom: 16px; }
+.popup .popup-content .text-content > div h3 { display: block; width: 120px; margin-bottom: 12px; padding: 5px 0px; background: #D42028; text-align: center; text-transform: uppercase; box-shadow: -3px 3px 0px #000; color: #fff; }
+.popup .popup-content .text-content > div ul { list-style: none; padding-left: 8px; }
+.popup .popup-content .text-content > div ul li { margin-bottom: 8px; }
+.popup .popup-content .text-content > div ul li::after { content: ''; display: block; width: 25px; height: 1px; margin-top: 8px; background: #d4d4d4; }
 
 .popup.ativo { visibility: visible; opacity: 1; transform: scale(1); }
 	.popup.ativo .backdrop { opacity: 0.4; }
@@ -129,10 +130,10 @@ main > header h1::after { content: ''; display: block; width: 54px; height: 4px;
 	#app { height: calc(100vh - 48px); }
 	.wrapper { padding: 0 0; }
 
-	#busca { width: 100%; margin-bottom: 12px; padding: 0 30px; }
+	#search { width: 100%; margin-bottom: 12px; padding: 0 30px; }
 	.table.fixed { top: -1px; width: 100%; }
 	.table thead th:nth-child(n+2), .table tbody td:nth-child(n+2) { display: none; }
-	.table thead th.personagem { width: 100%; padding-right: 0; }
+	.table thead th.character { width: 100%; padding-right: 0; }
 
 	.table tbody tr td { height: auto; padding: 12px 0; }
 
