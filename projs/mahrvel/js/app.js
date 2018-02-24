@@ -214,6 +214,19 @@ busca.addEventListener('input', function(e){
 
 //Paginação
 var pageTotal;
+var pageWrapper = document.getElementsByClassName('wrapper-paginacao')[0];
+
+pageWrapper.getElementsByClassName('prevPage')[0].addEventListener('click', function(){
+    changePage("prev")
+});
+pageWrapper.getElementsByClassName('nextPage')[0].addEventListener('click', function(){
+    changePage("next")
+});
+
+var paginacao = document.getElementsByClassName('paginacao')[0];
+var pageIndex = 0;
+
+
 function initPagination(index){
     paginacao.innerHTML = "";
     pageTotal = Math.floor(heroTotal/heroLimit);
@@ -235,6 +248,7 @@ function initPagination(index){
     }
 
     paginacao.innerHTML = pageList;
+    console.log( paginacao.getElementsByTagName('button'). )
 }
 
 function changePage(pos){
