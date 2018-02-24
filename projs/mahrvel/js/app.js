@@ -8,7 +8,7 @@ var lookup, marvelDB, heroData, heroLimit, heroTotal, heroCount;
 var loader = document.getElementById('loader'); 
 var heroesTable = document.getElementById('heroestable');
 var heroesLines = heroesTable.getElementsByTagName("tr");
-var paginacao = document.getElementsByClassName('paginacao')[0];
+var pagination = document.getElementsByClassName('pagination')[0];
 
 function dbRequest(index, name){
 
@@ -20,7 +20,6 @@ function dbRequest(index, name){
         url = "https://gateway.marvel.com/v1/public/characters?ts=1&limit="+limit+"&offset="+heroOffset+"&apikey=f385d552e26ca12e91b9147a9c30eb4e&hash=c8d43d5f20c431734474fcdbd3685e53";
     }
 
-    console.log("offset: "+index, "Nome: "+name);
     //init request
     request.open('GET', url, true);
 
@@ -38,7 +37,7 @@ function dbRequest(index, name){
         //constroi a lista
         heroesTable.innerHTML = "";
         if(heroTotal > 0){
-            adicionaLista(heroData);
+            listConstructor(heroData);
             initPagination(index);
 
             lookup = {};
@@ -48,7 +47,7 @@ function dbRequest(index, name){
 
         } else {
             heroesTable.innerHTML = "<tr><td colspan='3'>Nenhum Resultado Encontrado</td></tr>";
-            paginacao.innerHTML = "";
+            pagination.innerHTML = "";
         }
 
       } else {
@@ -68,7 +67,7 @@ function dbRequest(index, name){
 dbRequest(0);
 
 //Construção da Lista
-function adicionaLista(data) {
+function listConstructor(data) {
     for(var i = 0; i < data.length; i++) {
 
         var heroId = data[i].id;
@@ -134,8 +133,6 @@ popupImage.addEventListener('load', function(){
 });
 
 function openPopup(id){
-    console.log(lookup[id]);
-
     popupContainer.classList.add('ativo');
 
     //Nome
@@ -207,67 +204,91 @@ busca.addEventListener('input', function(e){
     clearTimeout(timer);
     timer = setTimeout(function(){
         termo = busca.value.toUpperCase();
-        console.log("Buscando por: "+termo)
         dbRequest(0,termo);
     },2000);
 });
 
 //Paginação
 var pageTotal;
-var pageWrapper = document.getElementsByClassName('wrapper-paginacao')[0];
+var pageWrapper = document.getElementsByClassName('wrapper-pagination')[0];
+var pagination = document.getElementsByClassName('pagination')[0];
+var pageIndex = 0;
 
+function initPagination(index){
+
+    //Define o numero de paginas baseado na largura
+    var range;
+    if( window.innerWidth < 512){
+        range = 3
+    } else {
+        range = 6
+    }
+
+    var currentPage = index+1;
+    var totalPages = Math.round(heroTotal/heroLimit);
+    var start = 1;
+
+    if( currentPage == 1){
+        pageWrapper.getElementsByClassName('prevPage')[0].setAttribute('disabled','disabled')
+    } else {
+        pageWrapper.getElementsByClassName('prevPage')[0].removeAttribute('disabled')
+    }
+
+    if(currentPage == totalPages){
+        pageWrapper.getElementsByClassName('nextPage')[0].setAttribute('disabled','disabled')
+    } else {
+        pageWrapper.getElementsByClassName('nextPage')[0].removeAttribute('disabled')
+    }
+
+    //Evita numeros negativos forçando o 1
+    if (currentPage < (range / 2) + 1 ) {
+        start = 1;
+    //Não passa o limite de paginas (totalPages)
+    } else if (currentPage >= (totalPages - (range / 2) )) {
+        start = Math.round(totalPages - range + 1);
+        if( start < 0 ){
+            start = 1;
+        } 
+    } else {
+        start = (currentPage - Math.round(range / 2));
+    }
+
+    pagination.innerHTML = "";
+    for (var i = start; i <= ((start + range) - 1) && i <= totalPages; i++) {
+        if (i === currentPage) {
+            pagination.insertAdjacentHTML('beforeend', '<li><button data-page='+(i-1)+' class="ativo">'+i+'</button></li>');
+        } else {
+            pagination.insertAdjacentHTML('beforeend', '<li><button data-page='+(i-1)+'>'+i+'</button></li>');
+        }
+    }
+
+    var pageButton = pagination.getElementsByTagName('button')
+    for (var i = 0; i < pageButton.length; i++) {
+        pageButton[i].addEventListener('click', function(){
+            var page = this.dataset.page;
+            changePage(page);
+        });
+    }
+}
+
+//Troca as paginas
+function changePage(pos){
+
+    if(pos == "next" && pageIndex < heroTotal ){
+        pageIndex ++;
+    } else if(pos == "prev" && pageIndex > 0 ) {
+        pageIndex --;
+    } else {
+        pageIndex = parseInt(pos);
+    }
+
+    dbRequest(pageIndex, termo);
+}
+
+// Proximo e anterior
 pageWrapper.getElementsByClassName('prevPage')[0].addEventListener('click', function(){
     changePage("prev")
 });
 pageWrapper.getElementsByClassName('nextPage')[0].addEventListener('click', function(){
     changePage("next")
 });
-
-var paginacao = document.getElementsByClassName('paginacao')[0];
-var pageIndex = 0;
-
-
-function initPagination(index){
-    paginacao.innerHTML = "";
-    pageTotal = Math.floor(heroTotal/heroLimit);
-    console.log("Total de paginas:"+pageTotal);
-    var pageList = "";
-
-    if (index >= 2 ) {
-        for (var p = index-2; p <= index+3; p++) {
-            pageList += "<li><button onclick='changePage("+p+")'>"+(p+1)+"</button></li>";
-        }
-    } else if (index >= 1 ) {
-        for (var p = index-1; p <= index+4; p++) {
-            pageList += "<li><button onclick='changePage("+p+")'>"+(p+1)+"</button></li>";
-        }
-    } else {
-        for (var p = index; p <= index+5; p++) {
-            pageList += "<li><button onclick='changePage("+p+")'>"+(p+1)+"</button></li>";
-        }
-    }
-
-    paginacao.innerHTML = pageList;
-    console.log( paginacao.getElementsByTagName('button'). )
-}
-
-function changePage(pos){
-
-    var l = 0;
-    var hLenght = heroesLines.length;
-
-    while (l < hLenght-1){
-        heroesLines[l].classList.remove("ativo");
-        l++
-    }
-
-    if(pos == "next"){
-        pageIndex ++
-    } else if(pos == "prev") {
-        pageIndex --
-    } else if(Number.isInteger(pos)){
-        pageIndex = pos
-    }
-
-    dbRequest(pageIndex, termo);
-}
