@@ -1,0 +1,23 @@
+[
+  {
+    "name": "works",
+    "path": "/works",
+    "component": "/Users/yeshuaemanuel/Projects/test/yexx.github.io/pages/works/index.vue",
+    "chunkName": "pages/works/index",
+    "_name": "_5d8670af"
+  },
+  {
+    "name": "works-slug",
+    "path": "/works/:slug",
+    "component": "/Users/yeshuaemanuel/Projects/test/yexx.github.io/pages/works/_slug.vue",
+    "chunkName": "pages/works/_slug",
+    "_name": "_5bcfcf67"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/yeshuaemanuel/Projects/test/yexx.github.io/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_7b22e07c"
+  }
+]
