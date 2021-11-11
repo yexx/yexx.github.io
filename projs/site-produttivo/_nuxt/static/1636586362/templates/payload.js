@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/templates", (function(a,b){return {data:[{}],fetch:{"0":{templateList:[{title:"Relatório Fotográfico",thumb:a,link:b},{title:"Ordem de Serviço",thumb:a,link:b},{title:"Relatório de Visita Técnica",thumb:a,link:b}]}},mutations:void 0}}("depoimento-vita-care.png","https:\u002F\u002Fapp.produttivo.com.br\u002Fusers\u002Fnew")));
