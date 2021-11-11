@@ -1,0 +1,11 @@
+{
+  "Header": {
+    "description": "Auto imported from components/_header.vue"
+  },
+  "Breadcrumbs": {
+    "description": "Auto imported from components/breadcrumbs.vue"
+  },
+  "Card": {
+    "description": "Auto imported from components/card.vue"
+  }
+}
