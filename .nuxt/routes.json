@@ -1,5 +1,19 @@
 [
   {
+    "name": "blog",
+    "path": "/blog",
+    "component": "/Users/yeshuaemanuel/Projects/test/yexx.github.io/pages/blog/index.vue",
+    "chunkName": "pages/blog/index",
+    "_name": "_76c9b16b"
+  },
+  {
+    "name": "contact",
+    "path": "/contact",
+    "component": "/Users/yeshuaemanuel/Projects/test/yexx.github.io/pages/contact/index.vue",
+    "chunkName": "pages/contact/index",
+    "_name": "_2c80ef4d"
+  },
+  {
     "name": "works",
     "path": "/works",
     "component": "/Users/yeshuaemanuel/Projects/test/yexx.github.io/pages/works/index.vue",

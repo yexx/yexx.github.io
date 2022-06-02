@@ -1,4 +1,7 @@
 {
+  "Footer": {
+    "description": "Auto imported from components/_footer.vue"
+  },
   "Header": {
     "description": "Auto imported from components/_header.vue"
   },
@@ -7,5 +10,11 @@
   },
   "Card": {
     "description": "Auto imported from components/card.vue"
+  },
+  "HomeAbout": {
+    "description": "Auto imported from components/home/about.vue"
+  },
+  "HomeHeroBanner": {
+    "description": "Auto imported from components/home/hero-banner.vue"
   }
 }

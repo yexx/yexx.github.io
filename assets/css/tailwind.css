@@ -23,29 +23,31 @@
 }
 
 @layer utilities {
-  @variants responsive {
-    .position-center {
-      @apply top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
-    }
+  .hard-shadow {
+    text-shadow: theme('spacing[1]') theme('spacing[1]')  0 theme('colors.black');
+  }
 
-    .text-shadow {
-      text-shadow: theme('spacing[1]') theme('spacing[1]')  2px rgba(0,0,0,.12);
-    }
+  .absolute-center {
+    @apply top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  }
 
-    .text-shadow-sm {
-      text-shadow: theme('spacing[0.5]') theme('spacing[0.5]')  2px rgba(0,0,0,.12);
-    }
+  .text-shadow {
+    text-shadow: theme('spacing[1]') theme('spacing[1]')  0 rgba(0,0,0,.12);
+  }
 
-    .text-shadow-lg {
-      text-shadow: theme('spacing[1.5]') theme('spacing[1.5]')  2px rgba(0,0,0,.12);
-    }
+  .text-shadow-sm {
+    text-shadow: theme('spacing[0.5]') theme('spacing[0.5]')  0 rgba(0,0,0,.12);
+  }
+
+  .text-shadow-lg {
+    text-shadow: theme('spacing[1.5]') theme('spacing[1.5]')  0 rgba(0,0,0,.12);
   }
 }
 
 
 :root {
-  --primary: theme('colors.primary.500');
-  --secondary: theme('colors.secondary.500');
+  --primary: #6A3E88;
+  --secondary: #FBB80F;
   --white: theme('colors.trueGray.200');
   --black: theme('colors.trueGray.800');
 }
@@ -62,34 +64,48 @@ html, body, #__nuxt, #__layout {
   @apply h-full;
 }
 
+#__layout {
+  @apply p-4 overflow-hidden;
+}
+
 h1,h2,h3,h4,h5 {
   @apply relative font-cabin font-bold;
 }
 
-h1::after,
-h2::after,
-h3::after {
-  content: attr(data-text);
-  @apply
-    absolute
-    -bottom-1
-    -right-1
-    w-full
-    h-full
-    bg-clip-text
-    text-transparent
-    pointer-events-none;
+@supports (-webkit-text-fill-color: transparent) {
+  h1::before,
+  h2::before,
+  h3::before {
+    content: attr(data-text);
+    @apply
+      absolute
+      -bottom-1
+      -right-1
+      w-full
+      h-full
+      bg-clip-text
+      pointer-events-none;
 
-  background-image:
-    linear-gradient(
-      135deg,
-      transparent 30%,
-      var(--black) 30%,
-      var(--black) 50%,
-      transparent 50%,
-      transparent 80%,
-      var(--black) 80%);
-  background-size: 5px 5px;
+    -webkit-text-fill-color: transparent;
+    background-image:
+      linear-gradient(
+        135deg,
+        transparent 30%,
+        currentColor 30%,
+        currentColor 50%,
+        transparent 50%,
+        transparent 80%,
+        currentColor 80%);
+    background-size: 5px 5px;
+  }
+
+  h1 span, h2 span, h3 span {
+    @apply relative;
+  }
+}
+
+figure {
+  display: block;
 }
 
 h1 { @apply relative text-5xl tracking-tighter; }
@@ -99,12 +115,17 @@ h4 { @apply text-3xl; }
 h5 { @apply text-2xl; }
 strong { @apply text-shadow-sm; }
 
-
 a {
+  @apply font-bold;
   box-shadow: inset 0 -4px 0 0 var(--primary);
   transition: box-shadow 0.18s ease-in-out;
 
   &:hover {
-    box-shadow: inset 0 -10px 0 0 var(--secondary);
+    color: var(--primary);
+    box-shadow: inset 0 -1em 0 0 var(--secondary);
   }
+}
+
+.nuxt-link-active {
+  box-shadow: inset 0 -4px 0 0 var(--secondary);
 }

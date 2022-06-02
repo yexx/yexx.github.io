@@ -1,7 +1,8 @@
 ---
 title: Produttivo
 description: Produttivo new site
-img: my-photo.jpeg
+thumb: videos/boticario__prev.mp4
+hero: videos/boticario.mp4
 ---
 
 ![Foto da home do site](/imgs/my-photo.jpeg)

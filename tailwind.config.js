@@ -1,33 +1,39 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: [
+  contents: [
     './components/**/*.{vue,js}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}',
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
       current: 'currentColor',
       transparent: 'transparent',
+      custom: '#454545',
       white: 'var(--white)',
       black: 'var(--black)',
-      primary: colors.fuchsia,
-      secondary: colors.amber,
+      primary: 'var(--primary)',
+      secondary: 'var(--secondary)',
       trueGray: colors.trueGray,
     },
     extend: {
       fontFamily: {
         'redhat': ['Red Hat Mono', 'monospace'],
         'cabin': ['Cabin', 'sans-serif']
-      }
+      },
+      typography: ({ theme }) => ({
+        white: {
+          css: {
+            '--tw-prose-headings': 'var(--white)',
+          }
+        }
+      })
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ]
 }

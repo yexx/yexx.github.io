@@ -6,9 +6,9 @@ import NuxtError from './components/nuxt-error.vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
-import '../assets/css/tailwind.css'
+import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css'
 
-import '../assets/css/_anim.css'
+import '../assets/css/tailwind.css'
 
 import '../node_modules/prismjs/themes/prism.css'
 

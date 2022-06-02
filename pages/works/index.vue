@@ -1,36 +1,64 @@
 <template>
-  <main class="p-4 h-full">
-    <header>
-      <h1 class="text-9xl" data-text="My Works">My Works</h1>
-    </header>
-    <ul class="works flex gap-4">
-      <li v-for="work in workList" :key="work.path">
-        <Card>
-          <figure class="relative pb-2">
-            <img width="300" height="300" :src="`/imgs/${work.img}`" :alt="work.description">
-            <figcaption class="absolute position-center w-4/5 font-bold text-center">
-              {{work.description}}
-            </figcaption>
-          </figure>
-          <h3 class="text-shadow">{{work.title}}</h3>
-          <NuxtLink :to="work.path">Ver Mais</NuxtLink>
-        </Card>
+  <section>
+    <ul class="works grid grid-cols-3 gap-6">
+      <li v-for="work in workList" :key="work.path" class="group border border-transparent hover:bg-black hover:border-primary">
+        <figure v-if="work.thumb" role="group">
+          <div class="img-wrapper relative w-full">
+            <NuxtImg
+              v-if="work.type == 'image'"
+              :src="work.thumb"
+              :alt="work.description"
+              width="300"
+              height="300"
+              sizes="sm:100vw md:50vw lg:300px"
+              class="mx-auto w-full h-full object-cover"
+            />
+
+            <video
+              v-if="work.type == 'video'"
+              :src="work.thumb"
+              :alt="work.description"
+              width="300"
+              height="300"
+              muted
+              loop
+              class="mx-auto w-full h-full object-cover"
+              @mouseenter="$event.target.play()"
+              @mouseleave="$event.target.pause()"
+            />
+          </div>
+          <figcaption class="mt-4 p-4 group-hover:text-secondary">
+            <h3 class="text-shadow">{{work.title}}</h3>
+            <p>{{work.description}}</p>
+
+            <NuxtLink :to="work.path">Ver Mais</NuxtLink>
+          </figcaption>
+        </figure>
       </li>
     </ul>
-  </main>
+  </section>
 </template>
 
-<style>
-.works li {
-  flex-basis: 25%;
+<style scoped lang="postcss">
+.img-wrapper {
+  height: 300px;
 }
 
-.works .card:hover {
-  box-shadow: 0.75em 0.75em 0px theme('colors.black');
+.img-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(45deg, transparent 48%, rgba(0,0,0,0.75) 48%, rgba(0,0,0,0.75) 50%, transparent 51%);
+  background-size: 4px 4px;
 }
 </style>
 
 <script>
+import { getFiletype } from '@/utils/file';
+
 export default {
   head() {
     return {
@@ -43,9 +71,23 @@ export default {
     }
   },
   async fetch() {
-    this.workList = await this.$content('works')
-      .only(['title', "description", 'img'])
-      .fetch();
+    this.workList =
+      await this.$content('works')
+        .fetch()
+
+    this.workList.map((work) => {
+      if(work.thumb) {
+        work.type = getFiletype(work.thumb);
+      }
+    });
+  },
+  methods: {
+    play(el) {
+      console.log(el);
+    },
+    stop(el) {
+      console.log(el);
+    }
   }
 }
 </script>
