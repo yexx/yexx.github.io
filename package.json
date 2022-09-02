@@ -43,6 +43,7 @@
     "postcss-loader": "^4.1.0",
     "postcss-url": "^10.1.1",
     "prettier": "^2.3.2",
+    "push-dir": "^0.4.1",
     "ts-jest": "^27.0.3",
     "vue-jest": "^3.0.4"
   }
