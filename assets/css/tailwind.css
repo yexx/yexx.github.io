@@ -46,10 +46,10 @@
 
 
 :root {
-  --primary: #6A3E88;
-  --secondary: #FBB80F;
-  --white: theme('colors.trueGray.200');
-  --black: theme('colors.trueGray.800');
+  --primary: theme('colors.primary.DEFAULT');
+  --secondary: theme('colors.secondary');
+  --white: theme('colors.neutral.200');
+  --black: theme('colors.neutral.800');
 }
 
 html {

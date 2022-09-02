@@ -12,12 +12,14 @@ module.exports = {
     colors: {
       current: 'currentColor',
       transparent: 'transparent',
-      custom: '#454545',
-      white: 'var(--white)',
-      black: 'var(--black)',
-      primary: 'var(--primary)',
-      secondary: 'var(--secondary)',
-      trueGray: colors.trueGray,
+      white: colors.neutral[200],
+      black: colors.neutral[800],
+      primary: {
+        DEFAULT: '#a328cc',
+        dodge: '#efcd23',
+      },
+      secondary: '#efcd23',
+      neutral: colors.neutral,
     },
     extend: {
       fontFamily: {

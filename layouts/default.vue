@@ -2,11 +2,11 @@
   <div class="page grid h-full border">
     <Header />
     <main class="content relative grid min-h-full overflow-auto" >
-      <header class="flex items-center px-8 py-6 border-b" v-if="page">
-        <h1 class="w-4/6 text-7xl" :data-text="page.title">
+      <header class="sm:flex sm:items-center px-8 py-6 border-b" v-if="page">
+        <h1 class="sm:w-4/6 sm:text-7xl" :data-text="page.title">
           <span>{{ page.title }}</span>
         </h1>
-        <p class="w-2/6 text-right" v-html="page.subtitle"></p>
+        <p class="mt-2 sm:text-right sm:mt-0 sm:ml-auto" v-html="page.subtitle"></p>
       </header>
       <Nuxt />
     </main>

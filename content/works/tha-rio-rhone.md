@@ -1,6 +1,6 @@
 ---
 title: Thá - Rio Rhone
-description: Landing Page Thá Rio Rhone
+description: Thá Rio Rhone Landing Page
 thumb: videos/tha-riorhone__prev.mp4
 hero: videos/tha-riorhone.mp4
 ---

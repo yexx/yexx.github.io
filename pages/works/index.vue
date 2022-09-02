@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ul class="works grid grid-cols-3 gap-6">
+    <ul class="works grid gap-6 sm:grid-cols-3">
       <li v-for="work in workList" :key="work.path" class="group border border-transparent hover:bg-black hover:border-primary">
         <figure v-if="work.thumb" role="group">
           <div class="img-wrapper relative w-full">
@@ -31,7 +31,7 @@
             <h3 class="text-shadow">{{work.title}}</h3>
             <p>{{work.description}}</p>
 
-            <NuxtLink :to="work.path">Ver Mais</NuxtLink>
+            <!-- <NuxtLink :to="work.path">Ver Mais</NuxtLink> -->
           </figcaption>
         </figure>
       </li>

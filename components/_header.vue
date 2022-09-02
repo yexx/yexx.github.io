@@ -1,6 +1,6 @@
 <template>
-  <header class="flex items-center w-full py-4 px-6 bg-white border-b">
-    <a id="jumpcontent" href="#content" title="Jump to content" tabindex="0">Jump to content</a>
+  <header class="relative flex w-full py-4 px-6 bg-white border-b">
+    <!-- <a id="jumpcontent" href="#content" title="Jump to content" tabindex="0">Jump to content</a -->
 
     <NuxtLink to="/" class="logo flex-shrink-0" aria-label="Yeshua Braz">
       <svg viewBox="0 0 640 560" xmlns="http://www.w3.org/2000/svg" c>
@@ -23,21 +23,34 @@
       </svg>
     </NuxtLink>
 
-    <nav class="ml-3" aria-label="Site menu">
-      <ul class="flex gap-3">
-        <li><NuxtLink to="/works" aria-label="Go to My Work page" title="Go to My Work page">My Work</NuxtLink></li>
-        <li><NuxtLink to="/contact" aria-label="Go to Contact page" title="Go to Contact page">Let's talk</NuxtLink></li>
-        <li><NuxtLink to="/blog" aria-label="Go to Blog page" title="Go to Blog page">Random Ideas</NuxtLink></li>
-      </ul>
-    </nav>
+    <input id="showMenu" class="peer" type="checkbox" hidden/>
+    <label
+      for="showMenu"
+      class="
+         ml-auto self-center p-3
+         sm:hidden
+        peer-checked:bg-primary peer-checked:text-white">Menu</label>
+    <div class="
+        hidden absolute top-full right-[-1px] gap-3 p-3 bg-white border z-10
+        peer-checked:grid
+        sm:static sm:flex sm:flex-1 sm:items-center sm:p-0 sm:border-0
+      ">
+      <nav class="sm:ml-3" aria-label="Site menu">
+        <ul class="flex flex-col gap-1 text-center sm:flex-row sm:text-left sm:gap-3">
+          <li><NuxtLink to="/works" aria-label="Go to My Work page" title="Go to My Work page">My Work</NuxtLink></li>
+          <!-- <li><NuxtLink to="/contact" aria-label="Go to Contact page" title="Go to Contact page">Let's talk</NuxtLink></li>
+          <li><NuxtLink to="/blog" aria-label="Go to Blog page" title="Go to Blog page">Random Ideas</NuxtLink></li> -->
+        </ul>
+      </nav>
 
-    <nav class="ml-auto text-2xl" aria-label="Contact options">
-      <ul class="flex gap-3 items-center">
-        <li><a class=" px-2" href="https://www.linkedin.com/in/yeshua-braz-9b075590/" title="My Linkedin profile"><fa-icon :icon="['fab', 'linkedin']" /></a></li>
-        <li><a class=" px-2" href="https://codepen.io/yexx" title="My Codepen profile"><fa-icon :icon="['fab', 'codepen']" /></a></li>
-        <li><a class=" px-2" href="https://github.com/yexx" title="My GitHub profile"><fa-icon :icon="['fab', 'github']" /></a></li>
-      </ul>
-    </nav>
+      <nav class="sm:ml-auto text-2xl" aria-label="Contact options">
+        <ul class="flex gap-3 items-center">
+          <li><a class=" px-2" href="https://www.linkedin.com/in/yeshua-braz-9b075590/" title="My Linkedin profile"><fa-icon :icon="['fab', 'linkedin']" /></a></li>
+          <li><a class=" px-2" href="https://codepen.io/yexx" title="My Codepen profile"><fa-icon :icon="['fab', 'codepen']" /></a></li>
+          <li><a class=" px-2" href="https://github.com/yexx" title="My GitHub profile"><fa-icon :icon="['fab', 'github']" /></a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 </template>
 
@@ -65,7 +78,7 @@
 }
 
 .logo svg g.primary path {
-  stroke: theme('colors.primary');
+  stroke: theme('colors.primary.DEFAULT');
   stroke-dasharray: 100em;
   stroke-dashoffset: 0em;
   transition: all 0.5s ease-in-out 0.2s;
