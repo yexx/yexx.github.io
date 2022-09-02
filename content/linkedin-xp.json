@@ -1,0 +1,80 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "work": [
+    {
+      "name": "CESAR",
+      "position": "UI Developer Pleno",
+      "startDate": "2021-10-31",
+      "endDate": "",
+      "highlights": [],
+      "summary": "Envolvido na tradução das ideias e dos conceitos criativos de design em realidade, utilizando tecnologias de desenvolvimento front-end, sendo a ponte entre a camada de apresentação e o back-end participando de todo o processo. Com metodologias ágeis, tenho o papel de garantir a viabilidade e a performance do projeto, considerando o melhor framework e as ferramentas para um desenvolvimento eficiente do produto. Utilizando HTML, CSS, linguagens como Javascript e Typescript e também frameworks como Angular, Ember, React e Vue.",
+      "url": "https://www.linkedin.com/company/cesar/",
+      "location": "Curitiba, Paraná, Brasil"
+    },
+    {
+      "name": "Objective",
+      "position": "Desenvolvedor Front-end Pleno",
+      "startDate": "2018-04-30",
+      "endDate": "2021-10-31",
+      "highlights": [],
+      "summary": "Trabalho com o desenvolvimento de aplicações, principalmente web, como plataformas de gestão comercial (aplicações para gerenciamento de clientes e produtos voltado para fornecedores de hipermercados, aplicação para agilizar a comunicação entre marketplaces, entre outros), aplicativos para instituições financeiras (ações para gerenciamento financeiro de bancos e devedores) e sistemas de ensino e educação (biblioteca para ensino com vídeo-aulas e artigos).  Para estes desenvolvimentos utilizei linguagens como Angular 2, Vue, React, React-Native, Kotlin.\n\nNa empresa aplico metodologias ágeis (XP focado em Pair Programming, Agile) e frameworks como Scrum. Aplico testes automatizados com base na metodologia BDD e TDD (usando o Jest para testes unitários e a Enzyme para testes End-to-End). Para gerenciamento de tarefas utilizo o sistema Jira e para controle de versões tenho grande conhecimento com o Git (Bitbucket, Git Hub e Git Lab).\n\nNa empresa alguns projetos vem da equipe de UX\\UI onde precisamos seguir o layout proposto. Devido meu background em design, consigo aplicar os conceitos com facilidade e posso ajudar meus colegas de equipe.",
+      "url": "https://www.linkedin.com/company/objectivebr/",
+      "location": "Curitiba e Região, Brasil"
+    },
+    {
+      "name": "Grupo GPAC Comunicação Integrada",
+      "position": "Desenvolvedor Front-End Pleno",
+      "startDate": "2016-05-31",
+      "endDate": "2018-04-30",
+      "highlights": [],
+      "summary": "Trabalhei com o desenvolvimento de sites e landing pages promocionais interativas para grandes empresas como Instituto Boticário, COAMO, Construtora THÁ, Família Zanlorenzi, Dunlop Pneus, entre outros.\n\nOs projetos eram desenvolvidos com foco em usabilidade e performance para atingir um bom score no Google PageSpeed insights, sem deixar de lado a parte interativa com animações e outros tipos de interações para o usuário.\n\nUsei HTML, CSS, Javascript (Angular e Vue), PHP, e cuidava do versionamento dos projetos com Git.",
+      "url": "https://www.linkedin.com/company/grupo-g-pac-comunica%C3%A7%C3%A3o-integrada/",
+      "location": "Curitiba - PR"
+    },
+    {
+      "name": "GPMidia - Gestão de Performance",
+      "position": "Web Designer / Desenvolvedor Front-End",
+      "startDate": "2014-11-30",
+      "endDate": "2016-04-30",
+      "highlights": [],
+      "summary": "Atuei na concepção e no desenvolvimento de páginas promocionais, utilizando ferramentas como Photoshop e Illustrator para os conceitos e imagens, e HTML/CSS/Javascript para o desenvolvimento das páginas, com foco em responsividade e perfomance para melhorar o SEO das mesmas.",
+      "url": "https://www.linkedin.com/company/gpmidia/",
+      "location": "Curitiba, PR"
+    },
+    {
+      "name": "LIKE.IT",
+      "position": "Front End Developer",
+      "startDate": "2012-09-30",
+      "endDate": "2014-07-31",
+      "highlights": [],
+      "summary": "Desenvolvimento de sites, landing pages e email markerting, utilizando HTML, CSS e jQuery. Atuando tanto para clientes internos como parceiros, onde entreguei o apoio necessário para os projetos, o que me ajudou a desenvolver um senso de adaptabilidade, que hoje consigo aplicar com facilidade.",
+      "url": ""
+    },
+    {
+      "name": "Mídia Digital/Agencia CASA (JWT Group)",
+      "position": "Trainee Front End Developer",
+      "startDate": "2010-11-30",
+      "endDate": "2012-08-31",
+      "highlights": [],
+      "summary": "Trabalhei com desenvolvimento de sites, landing pages e email markerting, utilizando HTML, CSS e jQuery. Desenvolvendo páginas promocionais para clientes como Coca-Cola, Magazine Luiza e HSBC.",
+      "url": "",
+      "location": "Curitiba e Região, Brasil"
+    }
+  ],
+  "volunteer": [],
+  "education": [
+    {
+      "institution": "Universidade Tecnológica Federal do Paraná",
+      "area": "Design Gráfico",
+      "studyType": "Técnologo",
+      "startDate": "2009-12-31",
+      "endDate": "2015-12-31",
+      "score": "",
+      "courses": []
+    }
+  ],
+  "meta": {
+    "version": "v1.0.0",
+    "canonical": "https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json"
+  }
+}

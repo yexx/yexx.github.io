@@ -1,11 +1,10 @@
 <template>
-  <div :class="['card', 'border', `p-${spacing}`]">
+  <div :class="['card', 'border', 'relative', `p-${spacing}`]">
     <slot></slot>
   </div>
 </template>
 
 <style lang="postcss">
-
 </style>
 
 <script lang="ts">

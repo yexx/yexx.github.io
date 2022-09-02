@@ -1,7 +1,8 @@
 ---
 title: Thá Win
-description: Landing page Thá win
-img: my-photo.jpeg
+description: Thá Win Landing Page
+thumb: videos/tha-win__prev.mp4
+hero: videos/tha-win.mp4
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit

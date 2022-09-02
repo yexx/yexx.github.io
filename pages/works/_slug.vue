@@ -1,20 +1,18 @@
 <template>
-  <main class="min-h-full p-4" v-if="work">
-    <div class="container mx-auto">
-      <h2 :data-text="work.title">{{ work.title }}</h2>
-      <hr class="mb-4" />
-      <section class="grid gap-4">
-        <nuxt-content :document="work" tag="article" />
-        <aside v-if="work.media">
-          <figure v-if="work.media == 'image'">
-            <img :src="`/imgs/${work.img}`" />
-          </figure>
-          <figure v-if="work.media == 'video'">
-            <video ref="video" autoplay muted loop :src="`/videos/${work.img}`"/>
-          </figure>
-        </aside>
-      </section>
-    </div>
+  <main id="content" class="relative min-h-full py-4 px-6" v-if="work">
+    <h2 :data-text="work.title">{{ work.title }}</h2>
+    <hr class="mb-4" />
+    <section class="grid gap-4">
+      <nuxt-content :document="work" tag="article" />
+      <aside v-if="media">
+        <figure v-if="media == 'image'">
+          <img :src="`/imgs/${work.hero}`" />
+        </figure>
+        <figure v-if="media == 'video'">
+          <video ref="video" autoplay muted loop :src="`/videos/${work.hero}`"/>
+        </figure>
+      </aside>
+    </section>
   </main>
 </template>
 
@@ -28,16 +26,29 @@ section.grid {
 </style>
 
 <script>
+import { getFiletype } from '@/utils/file';
+
 export default {
     head() {
       return {
         title: `${this.work.title} - Yeshua Braz`
       };
     },
-    transition: "polygon",
     async asyncData({ $content, params }) {
       const work = await $content("works", params.slug).fetch();
       return { work };
     },
+    computed: {
+      media() {
+        if(this.work){
+          return getFiletype(this.work.hero);
+        }
+
+        return null;
+      }
+    },
+    methods: {
+
+    }
 }
 </script>
