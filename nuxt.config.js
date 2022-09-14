@@ -16,6 +16,13 @@ export default {
     },
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
+    script: [
+      {
+        hid: 'ga',
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-KH3FKYX5FK'
+      }
     ]
   },
 
@@ -25,6 +32,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~plugins/ga.js', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -17,6 +17,7 @@ import nuxt_plugin_pluginclient_3f552c08 from 'nuxt_plugin_pluginclient_3f552c08
 import nuxt_plugin_pluginserver_b5e2c4e0 from 'nuxt_plugin_pluginserver_b5e2c4e0' // Source: ./content/plugin.server.js (mode: 'server')
 import nuxt_plugin_fontawesome_01fd9538 from 'nuxt_plugin_fontawesome_01fd9538' // Source: ./fontawesome.js (mode: 'all')
 import nuxt_plugin_image_4a07209d from 'nuxt_plugin_image_4a07209d' // Source: ./image.js (mode: 'all')
+import nuxt_plugin_ga_fb0a2534 from 'nuxt_plugin_ga_fb0a2534' // Source: ../plugins/ga.js (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -66,7 +67,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"title":"Yeshua Braz - Porfolio","htmlAttrs":{"lang":"en"},"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[],"script":[]},
+    head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"title":"Yeshua Braz - Porfolio","htmlAttrs":{"lang":"en"},"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"script":[{"hid":"ga","async":true,"src":"https:\u002F\u002Fwww.googletagmanager.com\u002Fgtag\u002Fjs?id=G-KH3FKYX5FK"}],"style":[]},
 
     router,
     nuxt: {
@@ -198,6 +199,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_image_4a07209d === 'function') {
     await nuxt_plugin_image_4a07209d(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_ga_fb0a2534 === 'function') {
+    await nuxt_plugin_ga_fb0a2534(app.context, inject)
   }
 
   // Lock enablePreview in context
