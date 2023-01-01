@@ -15,7 +15,7 @@
   "dependencies": {
     "@nuxt/content": "^1.15.0",
     "core-js": "^3.15.1",
-    "nuxt": "^2.15.7"
+    "nuxt": "^3.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
@@ -45,6 +45,6 @@
     "prettier": "^2.3.2",
     "push-dir": "^0.4.1",
     "ts-jest": "^27.0.3",
-    "vue-jest": "^3.0.4"
+    "vue-jest": "^4.0.1"
   }
 }
