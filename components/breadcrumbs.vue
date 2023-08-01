@@ -11,20 +11,15 @@
   </nav>
 </template>
 
-<style lang="postcss">
-.breadcrumb ol li:not(:last-child)::after {
-  content: '/';
-  @apply mx-1.5 text-lg align-middle;
-}
-</style>
-
 <script lang="ts">
 import Vue from 'vue';
 import { Route } from 'vue-router';
+
 export default Vue.extend({
   computed: {
     routes() {
       const { fullPath } = this.$route;
+
       const splitPath = fullPath.startsWith('/')
         ? fullPath.substring(1).split('/')
         : fullPath.split('/');
@@ -47,3 +42,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="postcss">
+.breadcrumb ol li:not(:last-child)::after {
+  content: '/';
+  @apply mx-1.5 text-lg align-middle;
+}
+</style>
