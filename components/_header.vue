@@ -38,8 +38,10 @@
       <nav class="sm:ml-3" aria-label="Site menu">
         <ul class="flex flex-col gap-1 text-center sm:flex-row sm:text-left sm:gap-3">
           <li><NuxtLink to="/works" aria-label="Go to My Work page" title="Go to My Work page">My Work</NuxtLink></li>
-          <!-- <li><NuxtLink to="/contact" aria-label="Go to Contact page" title="Go to Contact page">Let's talk</NuxtLink></li>
-          <li><NuxtLink to="/blog" aria-label="Go to Blog page" title="Go to Blog page">Random Ideas</NuxtLink></li> -->
+          <!--
+            <li><NuxtLink to="/contact" aria-label="Go to Contact page" title="Go to Contact page">Let's talk</NuxtLink></li>
+            <li><NuxtLink to="/blog" aria-abel="Go to Blog page" title="Go to Blog page">Random Ideas</NuxtLink></li>
+          -->
         </ul>
       </nav>
 
@@ -106,9 +108,3 @@
 }
 
 </style>
-
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-})
-</script>

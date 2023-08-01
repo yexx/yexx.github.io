@@ -39,6 +39,34 @@
   </section>
 </template>
 
+<script>
+import { getFiletype } from '@/utils/file';
+
+export default {
+  data() {
+    return {
+      workList: []
+    }
+  },
+  async fetch() {
+    this.workList = await this.$content('works')
+      .fetch()
+
+    this.workList.forEach((work) => {
+      if(work.thumb) {
+        work.type = getFiletype(work.thumb);
+      }
+    });
+  },
+
+  head() {
+    return {
+      title: 'My Works - Yeshua Braz'
+    }
+  },
+}
+</script>
+
 <style scoped lang="postcss">
 .img-wrapper {
   height: 300px;
@@ -55,39 +83,3 @@
   background-size: 4px 4px;
 }
 </style>
-
-<script>
-import { getFiletype } from '@/utils/file';
-
-export default {
-  head() {
-    return {
-      title: 'My Works - Yeshua Braz'
-    }
-  },
-  data() {
-    return {
-      workList: []
-    }
-  },
-  async fetch() {
-    this.workList =
-      await this.$content('works')
-        .fetch()
-
-    this.workList.map((work) => {
-      if(work.thumb) {
-        work.type = getFiletype(work.thumb);
-      }
-    });
-  },
-  methods: {
-    play(el) {
-      console.log(el);
-    },
-    stop(el) {
-      console.log(el);
-    }
-  }
-}
-</script>

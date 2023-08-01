@@ -1,8 +1,9 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="page grid h-full border">
     <Header />
     <main class="content relative grid min-h-full overflow-auto" >
-      <header class="sm:flex sm:items-center px-8 py-6 border-b" v-if="page">
+      <header v-if="page" class="sm:flex sm:items-center px-8 py-6 border-b">
         <h1 class="sm:w-4/6 sm:text-7xl" :data-text="page.title">
           <span>{{ page.title }}</span>
         </h1>
@@ -13,20 +14,6 @@
     <Footer />
   </div>
 </template>
-
-<style lang="postcss">
-.page {
-  grid-template-rows: auto 1fr auto;
-}
-
-.content {
-   grid-template-rows: auto 1fr;
-}
-
-.content section {
-  @apply relative px-8 pt-8 pb-6;
-}
-</style>
 
 <script lang="ts">
 import Vue from 'vue';
@@ -71,12 +58,7 @@ export default Vue.extend({
       ]
     }
   },
-  computed: {
-    page() {
-      const pages = this.pages;
-      return pages.find((p: Page) => p.name == this.$route.name) || null;
-    }
-  },
+
   head() {
     return {
       title: this.page ? `${this.page.title} | Yeshua Braz` : 'Yeshua Braz',
@@ -84,6 +66,27 @@ export default Vue.extend({
         { name: 'description', content: this.page?.description || '' }
       ]
     }
-  }
+  },
+
+  computed: {
+    page() {
+      const pages = this.pages;
+      return pages.find((p: Page) => p.name === this.$route.name) || null;
+    }
+  },
 });
 </script>
+
+<style lang="postcss">
+.page {
+  grid-template-rows: auto 1fr auto;
+}
+
+.content {
+   grid-template-rows: auto 1fr;
+}
+
+.content section {
+  @apply relative px-8 pt-8 pb-6;
+}
+</style>

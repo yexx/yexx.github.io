@@ -16,6 +16,34 @@
   </main>
 </template>
 
+<script>
+import { getFiletype } from '@/utils/file';
+
+export default {
+  async asyncData({ $content, params }) {
+    const work = await $content("works", params.slug).fetch();
+    return { work };
+  },
+  head() {
+    return {
+      title: `${this.work.title} - Yeshua Braz`
+    };
+  },
+  computed: {
+    media() {
+      if (this.work) {
+        return getFiletype(this.work.hero);
+      }
+
+      return null;
+    }
+  },
+  methods: {
+
+  }
+}
+</script>
+
 <style lang="postcss">
 section.grid {
   grid-template-columns: minmax(auto, 65ch) 1fr;
@@ -24,31 +52,3 @@ section.grid {
   @apply mb-4;
 }
 </style>
-
-<script>
-import { getFiletype } from '@/utils/file';
-
-export default {
-    head() {
-      return {
-        title: `${this.work.title} - Yeshua Braz`
-      };
-    },
-    async asyncData({ $content, params }) {
-      const work = await $content("works", params.slug).fetch();
-      return { work };
-    },
-    computed: {
-      media() {
-        if(this.work){
-          return getFiletype(this.work.hero);
-        }
-
-        return null;
-      }
-    },
-    methods: {
-
-    }
-}
-</script>

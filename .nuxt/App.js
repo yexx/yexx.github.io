@@ -10,6 +10,8 @@ import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css'
 
 import '../assets/css/tailwind.css'
 
+import '../assets/css/main.css'
+
 import '../node_modules/prismjs/themes/prism.css'
 
 import _6f6c098b from '../layouts/default.vue'
